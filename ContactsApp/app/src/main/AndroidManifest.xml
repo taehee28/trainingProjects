@@ -11,6 +11,12 @@
         android:theme="@style/Theme.ContactsApp">
         <activity
             android:name=".MainActivity"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
