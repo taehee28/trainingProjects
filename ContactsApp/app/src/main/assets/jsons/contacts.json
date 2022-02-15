@@ -1,0 +1,29 @@
+{
+  "contacts" : [
+    {
+      "profilePic" : "https://placeimg.com/300/300/any",
+      "name" : "Amy",
+      "phoneNum" : "01011112222"
+    },
+    {
+      "profilePic" : "https://placeimg.com/300/300/animals",
+      "name" : "Britney",
+      "phoneNum" : "01011113333"
+    },
+    {
+      "profilePic" : "https://placeimg.com/300/300/people",
+      "name" : "Charlotte",
+      "phoneNum" : "01011114444"
+    },
+    {
+      "profilePic" : "https://placeimg.com/300/300/tech",
+      "name" : "Daniel",
+      "phoneNum" : "01011115555"
+    },
+    {
+      "profilePic" : "https://placeimg.com/300/300/nature",
+      "name" : "Ethan",
+      "phoneNum" : "01011116666"
+    }
+  ]
+}
