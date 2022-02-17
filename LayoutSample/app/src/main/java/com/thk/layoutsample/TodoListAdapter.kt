@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.thk.layoutsample.databinding.ItemTodoBinding
 
 class TodoListAdapter(
-    private val todoItems: List<TodoItem>,
+    private val todoItems: MutableList<TodoItem>,
     private val onTodoCheckBoxClickListener: (Int, Boolean) -> Unit
 ) : RecyclerView.Adapter<TodoListAdapter.ViewHolder>() {
 
@@ -44,6 +44,11 @@ class TodoListAdapter(
     }
 
     override fun getItemCount(): Int = todoItems.size
+
+    fun addTodoItem(content: String) {
+        todoItems.add(TodoItem(content))
+        notifyItemInserted(todoItems.size - 1)
+    }
 
 
 }
