@@ -10,7 +10,8 @@
         android:id="@+id/dialog_textInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:counterMaxLength="20"
+        app:counterMaxLength="15"
+        app:counterEnabled="true"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:hint="content"
         >
@@ -18,7 +19,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/dialog_textField"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:maxLength="15"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
