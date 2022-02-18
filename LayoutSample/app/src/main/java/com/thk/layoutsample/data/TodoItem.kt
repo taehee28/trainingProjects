@@ -1,4 +1,4 @@
-package com.thk.layoutsample
+package com.thk.layoutsample.data
 
 data class TodoItem(
     val content: String,

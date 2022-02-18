@@ -1,11 +1,10 @@
-package com.thk.layoutsample
+package com.thk.layoutsample.adapter
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import androidx.recyclerview.widget.RecyclerView
+import com.thk.layoutsample.data.TodoItem
 import com.thk.layoutsample.databinding.ItemTodoBinding
 
 class TodoListAdapter(
@@ -14,6 +13,14 @@ class TodoListAdapter(
 ) : RecyclerView.Adapter<TodoListAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemTodoBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.checkbox.setOnClickListener {
+                val currentChecked = binding.checkbox.isChecked
+                todoItems[layoutPosition].isCompleted = currentChecked
+                notifyItemChanged(layoutPosition)
+            }
+        }
 
         fun bind(item: TodoItem) {
             binding.tvContent.apply {
@@ -26,11 +33,6 @@ class TodoListAdapter(
             }
 
             binding.checkbox.isChecked = item.isCompleted
-            binding.checkbox.setOnClickListener {
-                val currentChecked = binding.checkbox.isChecked
-                todoItems[layoutPosition].isCompleted = currentChecked
-                onTodoCheckBoxClickListener(layoutPosition, currentChecked)
-            }
         }
     }
 

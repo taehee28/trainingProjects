@@ -2,12 +2,11 @@ package com.thk.layoutsample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
-import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.thk.layoutsample.adapter.TodoListAdapter
+import com.thk.layoutsample.data.testItems
 import com.thk.layoutsample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
