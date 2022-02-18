@@ -8,8 +8,7 @@ import com.thk.layoutsample.data.TodoItem
 import com.thk.layoutsample.databinding.ItemTodoBinding
 
 class TodoListAdapter(
-    private val todoItems: MutableList<TodoItem>,
-    private val onTodoCheckBoxClickListener: (Int, Boolean) -> Unit
+    private val todoItems: MutableList<TodoItem>
 ) : RecyclerView.Adapter<TodoListAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemTodoBinding) : RecyclerView.ViewHolder(binding.root) {
