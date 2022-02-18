@@ -19,9 +19,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        todoListAdapter = TodoListAdapter(testItems) { position, isChecked ->
-            todoListAdapter.notifyItemChanged(position)
-        }
+        todoListAdapter = TodoListAdapter(testItems)
 
         binding.rvTodoList.apply {
             adapter = todoListAdapter
