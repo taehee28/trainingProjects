@@ -1,54 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MusicPlayFragment"
-    android:paddingHorizontal="32dp"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.appcompat.widget.AppCompatSeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+    <data>
+        <import type="com.thk.mediasample.ControlBtnState"/>
+        <import type="com.thk.mediasample.BtnStateViewModel"/>
+        <variable
+            name="viewModel"
+            type="BtnStateViewModel" />
+    </data>
 
-    <androidx.constraintlayout.helper.widget.Flow
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/seekBar"
 
-        android:orientation="horizontal"
-        app:flow_horizontalGap="16dp"
-        app:constraint_referenced_ids="btn_play, btn_pause, btn_stop"
-        />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MusicPlayFragment"
+        android:paddingHorizontal="32dp"
+        >
 
-    <Button
-        android:id="@+id/btn_play"
-        android:text="play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
-    <Button
-        android:id="@+id/btn_pause"
-        android:text="pause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="false"/>
+        <androidx.constraintlayout.helper.widget.Flow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/seekBar"
 
-    <Button
-        android:id="@+id/btn_stop"
-        android:text="stop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="false"/>
+            android:orientation="horizontal"
+            app:flow_horizontalGap="16dp"
+            app:constraint_referenced_ids="btn_play, btn_pause, btn_stop"
+            />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btn_play"
+            android:text="play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="@{viewModel.btnState.playBtn}"
+            android:onClick="@{() -> viewModel.changeBtnState(ControlBtnState.PLAYING)}"
+            />
+
+        <Button
+            android:id="@+id/btn_pause"
+            android:text="pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="@{viewModel.btnState.pauseBtn}"
+            android:onClick="@{() -> viewModel.changeBtnState(ControlBtnState.PAUSED)}"
+            />
+
+        <Button
+            android:id="@+id/btn_stop"
+            android:text="stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="@{viewModel.btnState.stopBtn}"
+            android:onClick="@{() -> viewModel.changeBtnState(ControlBtnState.STOPPED)}"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+
