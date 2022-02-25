@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModel
 class BtnStateViewModel : ViewModel() {
     private val TAG = BtnStateViewModel::class.simpleName
 
-    private val _btnState = MutableLiveData<ControlBtnState>(ControlBtnState.STOPPED)
-    val btnState
+    private val _btnState = MutableLiveData<ControlBtnState>(ControlBtnState.READY)
+    val btnState: LiveData<ControlBtnState>
         get() = _btnState
 
     fun changeBtnState(state: ControlBtnState) {

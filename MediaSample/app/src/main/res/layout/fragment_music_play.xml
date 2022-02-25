@@ -40,6 +40,7 @@
 
             android:orientation="horizontal"
             app:flow_horizontalGap="16dp"
+            app:flow_wrapMode="chain"
             app:constraint_referenced_ids="btn_play, btn_pause, btn_stop"
             />
 
