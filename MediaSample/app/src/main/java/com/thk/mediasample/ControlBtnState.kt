@@ -5,7 +5,7 @@ enum class ControlBtnState(
     val pauseBtn: Boolean,
     val stopBtn: Boolean
 ) {
-    NOT_READY(false, false, false),
+    LOADING(false, false, false),
     READY(true, false, false),
     PLAYING(false, true, true),
     PAUSED(true, false, true),

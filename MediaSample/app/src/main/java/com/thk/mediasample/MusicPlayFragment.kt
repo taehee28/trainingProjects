@@ -37,13 +37,6 @@ class MusicPlayFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = btnStateModel
 
-        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.vivaldi_the_four_seasons)
-        mediaPlayer?.setOnPreparedListener {
-            Log.d(TAG, ">>>> onPreparedListener: prepare done!")
-            Log.d(TAG, "duration : ${mediaPlayer?.duration}")
-            binding.seekBar.max = mediaPlayer?.duration!!
-            btnStateModel.changeBtnState(READY)
-        }
 //        mediaPlayer = MediaPlayer().apply {
 //            setAudioAttributes(
 //                AudioAttributes.Builder()
@@ -62,14 +55,21 @@ class MusicPlayFragment : Fragment() {
         btnStateModel.btnState.observe(viewLifecycleOwner, Observer {
             Log.d(TAG, "observe: state = ${it.name}")
             when(it!!) {
-                NOT_READY -> mediaPlayer?.prepare()
+                LOADING -> {
+                    if (mediaPlayer == null) {
+                        mediaPlayer = MediaPlayer().apply {
+                            setDataSource(requireContext().resources.openRawResourceFd(R.raw.vivaldi_the_four_seasons))
+                            setOnPreparedListener { btnStateModel.changeBtnState(READY) }
+                        }
+                    }
+                    mediaPlayer?.prepare()
+                }
                 PLAYING -> mediaPlayer?.start()
                 PAUSED -> mediaPlayer?.pause()
                 STOPPED -> {
                     mediaPlayer?.stop()
-                    btnStateModel.changeBtnState(NOT_READY)
+                    btnStateModel.changeBtnState(LOADING)
                 }
-
             }
         })
 
