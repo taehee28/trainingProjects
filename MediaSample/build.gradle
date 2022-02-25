@@ -3,6 +3,7 @@ buildscript {
     ext {
         exoplayer_version = '2.17.0'
         nav_version = '2.4.1'
+        multidex_version = '2.0.1'
     }
     repositories {
         google()
