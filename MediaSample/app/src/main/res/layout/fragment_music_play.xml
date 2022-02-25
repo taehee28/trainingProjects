@@ -5,11 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.thk.mediasample.ControlBtnState"/>
-        <import type="com.thk.mediasample.BtnStateViewModel"/>
+        <import type="com.thk.mediasample.data.ControlBtnState"/>
+        <import type="com.thk.mediasample.data.BtnStateViewModel"/>
         <variable
             name="viewModel"
-            type="BtnStateViewModel" />
+            type="com.thk.mediasample.data.BtnStateViewModel" />
     </data>
 
 

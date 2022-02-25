@@ -1,4 +1,4 @@
-package com.thk.mediasample
+package com.thk.mediasample.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData

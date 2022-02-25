@@ -1,4 +1,4 @@
-package com.thk.mediasample
+package com.thk.mediasample.data
 
 enum class ControlBtnState(
     val playBtn: Boolean,

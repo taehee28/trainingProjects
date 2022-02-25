@@ -11,7 +11,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.thk.mediasample.databinding.FragmentMusicPlayBinding
-import com.thk.mediasample.ControlBtnState.*
+import com.thk.mediasample.data.ControlBtnState.*
+import com.thk.mediasample.data.BtnStateViewModel
 
 
 class MusicPlayFragment : Fragment() {
