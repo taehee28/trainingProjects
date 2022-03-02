@@ -13,6 +13,8 @@ import com.thk.layoutsample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val TAG = MainActivity::class.simpleName
+    private val EMPTY_VIEW = 0
+    private val LIST_VIEW = 1
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var todoListAdapter: TodoListAdapter
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
                 .setItems(arrayOf("삭제하기")) { dialogInterface, listePos ->
                     todoListAdapter.removeTodoItem(position)
+                    switchView()
                 }
                 .show()
         }
@@ -48,8 +51,13 @@ class MainActivity : AppCompatActivity() {
                     alertDialog.findViewById<Button>(R.id.dialog_btn_add)?.setOnClickListener {
                         alertDialog.dismiss()
                         todoListAdapter.addTodoItem(content.toString())
+                        switchView()
                     }
                 }
         }
+    }
+
+    fun switchView() {
+        binding.viewSwitcher.displayedChild = if (todoListAdapter.itemCount > 0) LIST_VIEW else EMPTY_VIEW
     }
 }
