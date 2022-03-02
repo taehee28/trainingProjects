@@ -2,6 +2,8 @@ package com.thk.layoutsample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.textfield.TextInputLayout
@@ -10,8 +12,9 @@ import com.thk.layoutsample.data.testItems
 import com.thk.layoutsample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    private val TAG = MainActivity::class.simpleName
 
+    private lateinit var binding: ActivityMainBinding
     private lateinit var todoListAdapter: TodoListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +23,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         todoListAdapter = TodoListAdapter(testItems)
+        todoListAdapter.onItemLongClick = { position ->
+            AlertDialog.Builder(this)
+                .setItems(arrayOf("삭제하기")) { dialogInterface, listePos ->
+                    todoListAdapter.removeTodoItem(position)
+                }
+                .show()
+        }
 
         binding.rvTodoList.apply {
             adapter = todoListAdapter

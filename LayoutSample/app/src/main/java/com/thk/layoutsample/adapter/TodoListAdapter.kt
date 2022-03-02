@@ -1,7 +1,9 @@
 package com.thk.layoutsample.adapter
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.thk.layoutsample.data.TodoItem
@@ -11,9 +13,16 @@ class TodoListAdapter(
     private val todoItems: MutableList<TodoItem>
 ) : RecyclerView.Adapter<TodoListAdapter.ViewHolder>() {
 
+    var onItemLongClick: ((Int) -> Unit)? = null
+
     inner class ViewHolder(val binding: ItemTodoBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
+            binding.root.setOnLongClickListener {
+                onItemLongClick?.invoke(adapterPosition)
+                true
+            }
+
             binding.checkbox.setOnClickListener {
                 val currentChecked = binding.checkbox.isChecked
                 todoItems[layoutPosition].isCompleted = currentChecked
@@ -49,6 +58,11 @@ class TodoListAdapter(
     fun addTodoItem(content: String) {
         todoItems.add(TodoItem(content))
         notifyItemInserted(todoItems.size - 1)
+    }
+
+    fun removeTodoItem(position: Int) {
+        todoItems.removeAt(position)
+        notifyItemRemoved(position)
     }
 
 
