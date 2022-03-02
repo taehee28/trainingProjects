@@ -13,7 +13,9 @@
         <entry key="app/src/main/res/layout/fragment_constraint_chain.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_constraint_dimension.xml" value="0.40551605224609377" />
         <entry key="app/src/main/res/layout/fragment_constraint_flow.xml" value="0.38132934570312504" />
+        <entry key="app/src/main/res/layout/fragment_constraint_guideline.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_constraint_main.xml" value="0.5484375" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.5484375" />
       </map>
     </option>
   </component>
