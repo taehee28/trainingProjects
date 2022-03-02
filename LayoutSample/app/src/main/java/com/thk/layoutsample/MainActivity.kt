@@ -8,7 +8,7 @@ import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.textfield.TextInputLayout
 import com.thk.layoutsample.adapter.TodoListAdapter
-import com.thk.layoutsample.data.testItems
+import com.thk.layoutsample.data.TodoItem
 import com.thk.layoutsample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        todoListAdapter = TodoListAdapter(testItems)
+        todoListAdapter = TodoListAdapter(mutableListOf<TodoItem>())
         todoListAdapter.onItemLongClick = { position ->
             AlertDialog.Builder(this)
                 .setItems(arrayOf("삭제하기")) { dialogInterface, listePos ->
