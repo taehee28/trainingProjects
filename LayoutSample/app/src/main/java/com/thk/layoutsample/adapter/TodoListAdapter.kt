@@ -25,8 +25,8 @@ class TodoListAdapter(
 
             binding.checkbox.setOnClickListener {
                 val currentChecked = binding.checkbox.isChecked
-                todoItems[layoutPosition].isCompleted = currentChecked
-                notifyItemChanged(layoutPosition)
+                todoItems[adapterPosition].isCompleted = currentChecked
+                notifyItemChanged(adapterPosition)
             }
         }
 
