@@ -5,12 +5,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_percent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.3"
         />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_begin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -18,10 +21,20 @@
         />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_end="50dp"
+        />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="button"
+        app:layout_constraintTop_toBottomOf="@id/guide_percent"
+        app:layout_constraintStart_toEndOf="@id/guide_begin"
+        app:layout_constraintEnd_toStartOf="@id/guide_end"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
