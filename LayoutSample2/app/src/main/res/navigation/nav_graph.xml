@@ -22,6 +22,18 @@
         <action
             android:id="@+id/action_constraintMainFragment_to_constraintDimensionFragment"
             app:destination="@id/constraintDimensionFragment" />
+        <action
+            android:id="@+id/action_constraintMainFragment_to_constraintChainFragment"
+            app:destination="@id/constraintChainFragment" />
+        <action
+            android:id="@+id/action_constraintMainFragment_to_constraintFlowFragment"
+            app:destination="@id/constraintFlowFragment" />
+        <action
+            android:id="@+id/action_constraintMainFragment_to_constraintGuidelineFragment"
+            app:destination="@id/constraintGuidelineFragment" />
+        <action
+            android:id="@+id/action_constraintMainFragment_to_constraintBarrierFragment"
+            app:destination="@id/constraintBarrierFragment" />
     </fragment>
     <fragment
         android:id="@+id/constraintBasicFragment"
@@ -31,4 +43,20 @@
         android:id="@+id/constraintDimensionFragment"
         android:name="com.thk.layoutsample2.ConstraintDimensionFragment"
         android:label="ConstraintDimensionFragment" />
+    <fragment
+        android:id="@+id/constraintChainFragment"
+        android:name="com.thk.layoutsample2.ConstraintChainFragment"
+        android:label="ConstraintChainFragment" />
+    <fragment
+        android:id="@+id/constraintFlowFragment"
+        android:name="com.thk.layoutsample2.ConstraintFlowFragment"
+        android:label="ConstraintFlowFragment" />
+    <fragment
+        android:id="@+id/constraintGuidelineFragment"
+        android:name="com.thk.layoutsample2.ConstraintGuidelineFragment"
+        android:label="ConstraintGuidelineFragment" />
+    <fragment
+        android:id="@+id/constraintBarrierFragment"
+        android:name="com.thk.layoutsample2.ConstraintBarrierFragment"
+        android:label="ConstraintBarrierFragment" />
 </navigation>

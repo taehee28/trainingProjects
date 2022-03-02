@@ -32,6 +32,10 @@ class ConstraintMainFragment : Fragment(), View.OnClickListener {
         val action = when(view?.id) {
             binding.btnBasic.id -> R.id.action_constraintMainFragment_to_constraintBasicFragment
             binding.btnDimension.id -> R.id.action_constraintMainFragment_to_constraintDimensionFragment
+            binding.btnChain.id -> R.id.action_constraintMainFragment_to_constraintChainFragment
+            binding.btnFlow.id -> R.id.action_constraintMainFragment_to_constraintFlowFragment
+            binding.btnGuideline.id -> R.id.action_constraintMainFragment_to_constraintGuidelineFragment
+            binding.btnBarrier.id -> R.id.action_constraintMainFragment_to_constraintBarrierFragment
             else -> null
         }
 
