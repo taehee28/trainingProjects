@@ -19,9 +19,16 @@
         <action
             android:id="@+id/action_constraintMainFragment_to_constraintBasicFragment"
             app:destination="@id/constraintBasicFragment" />
+        <action
+            android:id="@+id/action_constraintMainFragment_to_constraintDimensionFragment"
+            app:destination="@id/constraintDimensionFragment" />
     </fragment>
     <fragment
         android:id="@+id/constraintBasicFragment"
         android:name="com.thk.layoutsample2.ConstraintBasicFragment"
         android:label="ConstraintBasicFragment" />
+    <fragment
+        android:id="@+id/constraintDimensionFragment"
+        android:name="com.thk.layoutsample2.ConstraintDimensionFragment"
+        android:label="ConstraintDimensionFragment" />
 </navigation>

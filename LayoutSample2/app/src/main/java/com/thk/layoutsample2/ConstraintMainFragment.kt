@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.thk.layoutsample2.databinding.FragmentConstraintMainBinding
 
-class ConstraintMainFragment : Fragment() {
+class ConstraintMainFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentConstraintMainBinding
 
     override fun onCreateView(
@@ -23,8 +23,18 @@ class ConstraintMainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnBasic.setOnClickListener {
-            it.findNavController().navigate(R.id.action_constraintMainFragment_to_constraintBasicFragment)
+        binding.btnBasic.setOnClickListener(this)
+        binding.btnDimension.setOnClickListener(this)
+
+    }
+
+    override fun onClick(view: View?) {
+        val action = when(view?.id) {
+            binding.btnBasic.id -> R.id.action_constraintMainFragment_to_constraintBasicFragment
+            binding.btnDimension.id -> R.id.action_constraintMainFragment_to_constraintDimensionFragment
+            else -> null
         }
+
+        if (action != null) view?.findNavController()?.navigate(action)
     }
 }
