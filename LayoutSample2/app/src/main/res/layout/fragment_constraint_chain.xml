@@ -10,7 +10,7 @@
         android:id="@+id/tv_basic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="기본"
+        android:text="기본(Spread)"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -119,6 +119,7 @@
         app:layout_constraintStart_toEndOf="@id/btn7"
         app:layout_constraintEnd_toStartOf="@id/btn9"
         />
+
     <Button
         android:id="@+id/btn9"
         android:layout_width="wrap_content"
@@ -130,10 +131,48 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-<!--    <Button-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
+    <TextView
+        android:id="@+id/tv_zeroWidth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="width = 0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn8"
+        />
 
-<!--        />-->
+    <Button
+        android:id="@+id/btn10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="10"
+        android:backgroundTint="@color/red"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_zeroWidth"
+        app:layout_constraintEnd_toStartOf="@id/btn11"
+        />
+
+    <Button
+        android:id="@+id/btn11"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="11"
+        android:backgroundTint="@color/yellow"
+        app:layout_constraintTop_toBottomOf="@id/tv_zeroWidth"
+        app:layout_constraintStart_toEndOf="@id/btn10"
+        app:layout_constraintEnd_toStartOf="@id/btn12"
+        />
+
+    <Button
+        android:id="@+id/btn12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="12"
+        android:backgroundTint="@color/green"
+        app:layout_constraintTop_toBottomOf="@id/tv_zeroWidth"
+        app:layout_constraintStart_toEndOf="@id/btn11"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
