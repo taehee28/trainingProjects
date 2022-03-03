@@ -27,6 +27,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         binding.btnLinear.setOnClickListener(this)
         binding.btnFrame.setOnClickListener(this)
         binding.btnTable.setOnClickListener(this)
+        binding.btnRelative.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
@@ -35,6 +36,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             binding.btnLinear.id -> R.id.action_homeFragment_to_linearFragment
             binding.btnFrame.id -> R.id.action_homeFragment_to_frameFragment
             binding.btnTable.id -> R.id.action_homeFragment_to_tableFragment
+            binding.btnRelative.id -> R.id.action_homeFragment_to_relativeFragment
             else -> null
         }
 
