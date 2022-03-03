@@ -32,9 +32,6 @@
             android:id="@+id/action_constraintMainFragment_to_constraintBasicFragment"
             app:destination="@id/constraintBasicFragment" />
         <action
-            android:id="@+id/action_constraintMainFragment_to_constraintDimensionFragment"
-            app:destination="@id/constraintDimensionFragment" />
-        <action
             android:id="@+id/action_constraintMainFragment_to_constraintChainFragment"
             app:destination="@id/constraintChainFragment" />
         <action
@@ -46,15 +43,18 @@
         <action
             android:id="@+id/action_constraintMainFragment_to_constraintBarrierFragment"
             app:destination="@id/constraintBarrierFragment" />
+        <action
+            android:id="@+id/action_constraintMainFragment_to_constraintRatioFragment"
+            app:destination="@id/constraintRatioFragment" />
     </fragment>
     <fragment
         android:id="@+id/constraintBasicFragment"
         android:name="com.thk.layoutsample2.ConstraintBasicFragment"
         android:label="ConstraintBasicFragment" />
     <fragment
-        android:id="@+id/constraintDimensionFragment"
-        android:name="com.thk.layoutsample2.ConstraintDimensionFragment"
-        android:label="ConstraintDimensionFragment" />
+        android:id="@+id/constraintRatioFragment"
+        android:name="com.thk.layoutsample2.ConstraintRatioFragment"
+        android:label="ConstraintRatioFragment" />
     <fragment
         android:id="@+id/constraintChainFragment"
         android:name="com.thk.layoutsample2.ConstraintChainFragment"

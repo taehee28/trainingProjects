@@ -24,7 +24,7 @@ class ConstraintMainFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnBasic.setOnClickListener(this)
-        binding.btnDimension.setOnClickListener(this)
+        binding.btnRatio.setOnClickListener(this)
         binding.btnChain.setOnClickListener(this)
         binding.btnFlow.setOnClickListener(this)
         binding.btnGuideline.setOnClickListener(this)
@@ -35,7 +35,7 @@ class ConstraintMainFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View?) {
         val action = when(view?.id) {
             binding.btnBasic.id -> R.id.action_constraintMainFragment_to_constraintBasicFragment
-            binding.btnDimension.id -> R.id.action_constraintMainFragment_to_constraintDimensionFragment
+            binding.btnRatio.id -> R.id.action_constraintMainFragment_to_constraintRatioFragment
             binding.btnChain.id -> R.id.action_constraintMainFragment_to_constraintChainFragment
             binding.btnFlow.id -> R.id.action_constraintMainFragment_to_constraintFlowFragment
             binding.btnGuideline.id -> R.id.action_constraintMainFragment_to_constraintGuidelineFragment

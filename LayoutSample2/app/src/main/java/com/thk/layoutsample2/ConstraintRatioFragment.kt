@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.thk.layoutsample2.databinding.FragmentConstraintDimensionBinding
+import com.thk.layoutsample2.databinding.FragmentConstraintRatioBinding
 
-class ConstraintDimensionFragment : Fragment() {
-    private lateinit var binding: FragmentConstraintDimensionBinding
+class ConstraintRatioFragment : Fragment() {
+    private lateinit var binding: FragmentConstraintRatioBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentConstraintDimensionBinding.inflate(inflater, container, false)
+        binding = FragmentConstraintRatioBinding.inflate(inflater, container, false)
 
         return binding.root
     }

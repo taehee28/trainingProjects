@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="vertical"
         app:flow_verticalGap="16dp"
-        app:constraint_referenced_ids="btn_basic, btn_dimension, btn_chain, btn_flow, btn_guideline, btn_barrier"
+        app:constraint_referenced_ids="btn_basic, btn_ratio, btn_chain, btn_flow, btn_guideline, btn_barrier"
         />
 
     <Button
@@ -24,10 +24,10 @@
         />
 
     <Button
-        android:id="@+id/btn_dimension"
+        android:id="@+id/btn_ratio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="dimension"/>
+        android:text="ratio"/>
 
     <Button
         android:id="@+id/btn_chain"
