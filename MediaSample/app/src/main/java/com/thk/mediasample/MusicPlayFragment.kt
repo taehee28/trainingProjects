@@ -40,21 +40,6 @@ class MusicPlayFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = btnStateModel
 
-//        mediaPlayer = MediaPlayer().apply {
-//            setAudioAttributes(
-//                AudioAttributes.Builder()
-//                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-//                    .setUsage(AudioAttributes.USAGE_MEDIA)
-//                    .build()
-//            )
-//            setDataSource("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
-//            setOnPreparedListener {
-//                binding.seekBar.max = mediaPlayer?.duration!!
-//                btnStateModel.changeBtnState(READY)
-//            }
-//
-//        }
-
         btnStateModel.btnState.observe(viewLifecycleOwner, Observer {
             Log.d(TAG, "observe: state = ${it.name}")
             when(it!!) {
