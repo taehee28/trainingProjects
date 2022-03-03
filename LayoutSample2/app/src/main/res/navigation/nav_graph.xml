@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_homeFragment_to_frameFragment"
             app:destination="@id/frameFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_tableFragment"
+            app:destination="@id/tableFragment" />
     </fragment>
     <fragment
         android:id="@+id/constraintMainFragment"
@@ -73,4 +76,8 @@
         android:id="@+id/frameFragment"
         android:name="com.thk.layoutsample2.FrameFragment"
         android:label="FrameFragment" />
+    <fragment
+        android:id="@+id/tableFragment"
+        android:name="com.thk.layoutsample2.TableFragment"
+        android:label="TableFragment" />
 </navigation>
