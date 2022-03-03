@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_menuFragment_to_videoPlayFragment"
             app:destination="@id/videoPlayFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_audioRecordFragment"
+            app:destination="@id/audioRecordFragment" />
     </fragment>
     <fragment
         android:id="@+id/musicPlayFragment"
@@ -26,4 +29,8 @@
         android:name="com.thk.mediasample.VideoPlayFragment"
         android:label="fragment_video_play"
         tools:layout="@layout/fragment_video_play" />
+    <fragment
+        android:id="@+id/audioRecordFragment"
+        android:name="com.thk.mediasample.AudioRecordFragment"
+        android:label="AudioRecordFragment" />
 </navigation>
