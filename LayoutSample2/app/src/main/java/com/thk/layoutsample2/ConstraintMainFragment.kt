@@ -25,6 +25,10 @@ class ConstraintMainFragment : Fragment(), View.OnClickListener {
 
         binding.btnBasic.setOnClickListener(this)
         binding.btnDimension.setOnClickListener(this)
+        binding.btnChain.setOnClickListener(this)
+        binding.btnFlow.setOnClickListener(this)
+        binding.btnGuideline.setOnClickListener(this)
+        binding.btnBarrier.setOnClickListener(this)
 
     }
 
