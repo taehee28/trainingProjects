@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@color/yellow"
+        android:layout_gravity="center"
+        />
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/green"
+        android:layout_gravity="center"
+        />
+
+    <View
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/red"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="top\nstart"
+        android:layout_gravity="top|start"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:background="@color/green"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="top\ncenter"
+        android:layout_gravity="top|center"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:background="@color/green"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="top\nend"
+        android:layout_gravity="top|end"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:background="@color/green"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="center\nstart"
+        android:layout_gravity="center|start"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:background="@color/green"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="center\nend"
+        android:layout_gravity="center|end"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:background="@color/green"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="bottom\nstart"
+        android:layout_gravity="bottom|start"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:background="@color/green"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="bottom\ncenter"
+        android:layout_gravity="bottom|center"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:background="@color/green"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="bottom\nend"
+        android:layout_gravity="bottom|end"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:background="@color/green"
+        />
+
+</FrameLayout>

@@ -25,12 +25,14 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
         binding.btnConstraint.setOnClickListener(this)
         binding.btnLinear.setOnClickListener(this)
+        binding.btnFrame.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
         val action = when (view?.id) {
             binding.btnConstraint.id -> R.id.action_homeFragment_to_constraintMainFragment
             binding.btnLinear.id -> R.id.action_homeFragment_to_linearFragment
+            binding.btnFrame.id -> R.id.action_homeFragment_to_frameFragment
             else -> null
         }
 

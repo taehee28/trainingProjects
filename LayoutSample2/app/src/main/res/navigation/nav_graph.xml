@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_homeFragment_to_linearFragment"
             app:destination="@id/linearFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_frameFragment"
+            app:destination="@id/frameFragment" />
     </fragment>
     <fragment
         android:id="@+id/constraintMainFragment"
@@ -66,4 +69,8 @@
         android:id="@+id/linearFragment"
         android:name="com.thk.layoutsample2.LinearFragment"
         android:label="LinearFragment" />
+    <fragment
+        android:id="@+id/frameFragment"
+        android:name="com.thk.layoutsample2.FrameFragment"
+        android:label="FrameFragment" />
 </navigation>
