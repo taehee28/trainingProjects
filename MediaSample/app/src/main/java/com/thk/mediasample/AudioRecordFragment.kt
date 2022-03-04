@@ -70,18 +70,16 @@ class AudioRecordFragment : Fragment() {
                 setOutputFile(outputPath)
             }
 
-            try {
+            trying {
                 recorder?.prepare()
                 recorder?.start()
-            } catch (e: IllegalStateException) {
-                Log.d(TAG, "IllegalStateException: ${e.message}")
             }
 
             changeBtnState(RecordingBtnState.RECORDING)
         }
 
         binding.btnStopRecord.setOnClickListener {
-            recorder?.stop()
+            trying { recorder?.stop() }
 
             changeBtnState(RecordingBtnState.IDLE)
         }
@@ -107,6 +105,14 @@ class AudioRecordFragment : Fragment() {
                 if (deleteResult) "파일이 삭제되었습니다." else "파일이 없습니다."
             )
 
+        }
+    }
+
+    private fun trying(block: () -> Unit) {
+        try {
+            block()
+        } catch (e: Exception) {
+            Log.d(TAG, "Exception: ${e.message}")
         }
     }
 
