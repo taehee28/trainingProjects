@@ -1,43 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:gravity="center">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Button
-        android:id="@+id/btn_startRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="녹음하기"
-        />
+    <data>
+        <import type="com.thk.mediasample.data.RecordingBtnState"/>
+        <variable
+            name="btnState"
+            type="RecordingBtnState" />
 
-    <Button
-        android:id="@+id/btn_stopRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="중단하기"
-        />
+    </data>
 
-    <Button
-        android:id="@+id/btn_playRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="재생하기"
-        />
 
-    <Button
-        android:id="@+id/btn_StopPlayingRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="멈추기"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <Button
-        android:id="@+id/btn_removeFile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="파일 삭제"/>
+        <Button
+            android:id="@+id/btn_startRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="녹음하기"
+            android:enabled="@{btnState.recordBtn}"
+            />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btn_stopRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="중단하기"
+            android:enabled="@{btnState.stopRecordBtn}"
+            />
+
+        <Button
+            android:id="@+id/btn_playRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="재생하기"
+            android:enabled="@{btnState.playRecordBtn}"
+            />
+
+        <Button
+            android:id="@+id/btn_StopPlayingRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="멈추기"
+            android:enabled="@{btnState.stopPlayingBtn}"
+            />
+
+        <Button
+            android:id="@+id/btn_removeFile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="파일 삭제"
+            android:enabled="@{btnState.removeBtn}"
+            />
+
+    </LinearLayout>
+
+
+</layout>
+

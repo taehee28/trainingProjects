@@ -1,11 +1,9 @@
 package com.thk.mediasample
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.thk.mediasample.data.RecordingBtnState
 import com.thk.mediasample.databinding.FragmentAudioRecordBinding
 import java.io.File
 
@@ -24,7 +23,6 @@ class AudioRecordFragment : Fragment() {
 
     private lateinit var binding: FragmentAudioRecordBinding
 
-    private var isRecording = false
     private val FILE_NAME = "recorded.mp4"
     private var recorder: MediaRecorder? = null
     private val outputPath: String by lazy {
@@ -52,12 +50,13 @@ class AudioRecordFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =  FragmentAudioRecordBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_audio_record, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        changeBtnState(RecordingBtnState.IDLE)
 
         permissionLauncher.launch(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO))
 
@@ -71,19 +70,33 @@ class AudioRecordFragment : Fragment() {
                 setOutputFile(outputPath)
             }
 
-            recorder?.prepare()
-            recorder?.start()
+            try {
+                recorder?.prepare()
+                recorder?.start()
+            } catch (e: IllegalStateException) {
+                Log.d(TAG, "IllegalStateException: ${e.message}")
+            }
+
+            changeBtnState(RecordingBtnState.RECORDING)
         }
 
         binding.btnStopRecord.setOnClickListener {
             recorder?.stop()
+
+            changeBtnState(RecordingBtnState.IDLE)
         }
 
         binding.btnPlayRecord.setOnClickListener {
             val recordedFile = findRecordedFile()
             if (recordedFile == null) {
                 showToast("파일이 없습니다.")
+            } else {
+                changeBtnState(RecordingBtnState.PLAYING)
             }
+        }
+
+        binding.btnStopPlayingRecord.setOnClickListener {
+            changeBtnState(RecordingBtnState.IDLE)
         }
 
         binding.btnRemoveFile.setOnClickListener {
@@ -95,6 +108,10 @@ class AudioRecordFragment : Fragment() {
             )
 
         }
+    }
+
+    private fun changeBtnState(btnState: RecordingBtnState) {
+        binding.btnState = btnState
     }
 
     private fun findRecordedFile(): File? {
