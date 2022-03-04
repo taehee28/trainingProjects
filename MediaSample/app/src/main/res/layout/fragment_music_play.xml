@@ -6,10 +6,10 @@
 
     <data>
         <import type="com.thk.mediasample.data.ControlBtnState"/>
-        <import type="com.thk.mediasample.data.BtnStateViewModel"/>
+        <import type="com.thk.mediasample.data.ControlBtnStateViewModel"/>
         <variable
             name="viewModel"
-            type="com.thk.mediasample.data.BtnStateViewModel" />
+            type="com.thk.mediasample.data.ControlBtnStateViewModel" />
     </data>
 
 

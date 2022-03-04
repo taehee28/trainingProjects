@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class BtnStateViewModel : ViewModel() {
-    private val TAG = BtnStateViewModel::class.simpleName
+class ControlBtnStateViewModel : ViewModel() {
+    private val TAG = ControlBtnStateViewModel::class.simpleName
 
     private val _btnState = MutableLiveData<ControlBtnState>(ControlBtnState.LOADING)
     val btnState: LiveData<ControlBtnState>

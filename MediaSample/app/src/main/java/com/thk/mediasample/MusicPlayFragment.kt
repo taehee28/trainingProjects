@@ -14,7 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.thk.mediasample.databinding.FragmentMusicPlayBinding
 import com.thk.mediasample.data.ControlBtnState.*
-import com.thk.mediasample.data.BtnStateViewModel
+import com.thk.mediasample.data.ControlBtnStateViewModel
 
 
 class MusicPlayFragment : Fragment() {
@@ -24,7 +24,7 @@ class MusicPlayFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    private val btnStateModel: BtnStateViewModel by viewModels()
+    private val btnStateModel: ControlBtnStateViewModel by viewModels()
     private var mediaPlayer: MediaPlayer? = null
 
     override fun onCreateView(
