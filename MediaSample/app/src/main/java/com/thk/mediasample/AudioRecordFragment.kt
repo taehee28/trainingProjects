@@ -61,7 +61,7 @@ class AudioRecordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         changeBtnState(RecordingBtnState.IDLE)
 
-        permissionLauncher.launch(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO))
+        permissionLauncher.launch(arrayOf(Manifest.permission.RECORD_AUDIO))
 
         binding.btnStartRecord.setOnClickListener {
             if (recorder == null) recorder = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) MediaRecorder() else MediaRecorder(requireContext())
