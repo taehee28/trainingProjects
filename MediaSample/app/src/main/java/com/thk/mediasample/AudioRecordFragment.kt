@@ -1,6 +1,7 @@
 package com.thk.mediasample
 
 import android.Manifest
+import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
@@ -30,6 +31,8 @@ class AudioRecordFragment : Fragment() {
         val file = File(appFilesDir, FILE_NAME)
         file.absolutePath
     }
+
+    private var recordPlayer: MediaPlayer? = null
 
     private val permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
         if (result.any { permission -> !permission.value }) {
@@ -88,12 +91,27 @@ class AudioRecordFragment : Fragment() {
             val recordedFile = findRecordedFile()
             if (recordedFile == null) {
                 showToast("파일이 없습니다.")
-            } else {
-                changeBtnState(RecordingBtnState.PLAYING)
+                return@setOnClickListener
             }
+
+            if (recordPlayer == null) {
+                recordPlayer = MediaPlayer().apply {
+                    setDataSource(recordedFile.absolutePath)
+                    setOnPreparedListener {
+                        changeBtnState(RecordingBtnState.PLAYING)
+                        it.start()
+                    }
+                    setOnCompletionListener {
+                        changeBtnState(RecordingBtnState.IDLE)
+                        it.stop()
+                    }
+                }
+            }
+            recordPlayer?.prepare()
         }
 
         binding.btnStopPlayingRecord.setOnClickListener {
+            recordPlayer?.stop()
             changeBtnState(RecordingBtnState.IDLE)
         }
 
@@ -144,6 +162,10 @@ class AudioRecordFragment : Fragment() {
     override fun onStop() {
         recorder?.release()
         recorder = null
+
+        recordPlayer?.release()
+        recordPlayer = null
+
         super.onStop()
     }
 
