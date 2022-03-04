@@ -24,6 +24,7 @@ class AudioRecordFragment : Fragment() {
 
     private lateinit var binding: FragmentAudioRecordBinding
 
+    private var isRecording = false
     private val FILE_NAME = "recorded.mp4"
     private var recorder: MediaRecorder? = null
     private val outputPath: String by lazy {
@@ -60,11 +61,6 @@ class AudioRecordFragment : Fragment() {
 
         permissionLauncher.launch(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO))
 
-//        Log.d("testlog", ">>>>onViewCreated: ${requireContext().filesDir.listFiles()}")
-//        for (file in requireContext().filesDir.listFiles()) {
-//            Log.d(TAG, "onViewCreated: ${file.name}")
-//        }
-//
         binding.btnStartRecord.setOnClickListener {
             if (recorder == null) recorder = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) MediaRecorder() else MediaRecorder(requireContext())
 
@@ -84,14 +80,42 @@ class AudioRecordFragment : Fragment() {
         }
 
         binding.btnPlayRecord.setOnClickListener {
-            val resultFiles = requireContext().filesDir.listFiles { file, strName ->
-                Log.d(TAG, "onViewCreated: $strName")
-                strName == FILE_NAME
-            }
-            for (file in resultFiles) {
-                Log.d(TAG, "file : ${file.name}")
+            val recordedFile = findRecordedFile()
+            if (recordedFile == null) {
+                showToast("파일이 없습니다.")
             }
         }
+
+        binding.btnRemoveFile.setOnClickListener {
+            val recordedFile = findRecordedFile()
+            val deleteResult = recordedFile?.delete() ?: false
+
+            showToast(
+                if (deleteResult) "파일이 삭제되었습니다." else "파일이 없습니다."
+            )
+
+        }
+    }
+
+    private fun findRecordedFile(): File? {
+        val recordedFile: File?
+
+        val resultFiles = requireContext().filesDir.listFiles { file, strName ->
+            Log.d(TAG, "onViewCreated: $strName")
+            strName == FILE_NAME
+        }
+
+        try {
+            recordedFile = resultFiles?.first { it?.name == FILE_NAME }
+        } catch (e: NoSuchElementException) {
+            return null
+        }
+
+        return recordedFile
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onStop() {
