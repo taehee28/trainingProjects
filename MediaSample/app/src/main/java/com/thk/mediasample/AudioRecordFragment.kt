@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.thk.mediasample.databinding.FragmentAudioRecordBinding
 
 class AudioRecordFragment : Fragment() {
@@ -17,9 +18,10 @@ class AudioRecordFragment : Fragment() {
 
     private val permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
         if (isGranted) {
-            
+            Toast.makeText(requireContext(), "permission granted", Toast.LENGTH_SHORT).show()
         } else {
-
+            Toast.makeText(requireContext(), "service can't provided", Toast.LENGTH_SHORT).show()
+            findNavController().navigateUp()
         }
     }
 
@@ -34,6 +36,8 @@ class AudioRecordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        permissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
 
