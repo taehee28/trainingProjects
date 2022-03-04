@@ -43,21 +43,7 @@ class MusicPlayFragment : Fragment() {
         btnStateModel.btnState.observe(viewLifecycleOwner, Observer {
             Log.d(TAG, "observe: state = ${it.name}")
             when(it!!) {
-                LOADING -> {
-                    if (mediaPlayer == null) {
-                        mediaPlayer = MediaPlayer().apply {
-                            setDataSource(requireContext().resources.openRawResourceFd(R.raw.vivaldi_the_four_seasons))
-                            setOnPreparedListener {
-                                btnStateModel.changeBtnState(READY)
-                                binding.seekBar.max = it.duration
-                            }
-                            setOnCompletionListener {
-                                btnStateModel.changeBtnState(STOPPED)
-                            }
-                        }
-                    }
-                    mediaPlayer?.prepare()
-                }
+                LOADING -> loadingMusic()
                 PLAYING -> playMusic()
                 PAUSED -> mediaPlayer?.pause()
                 STOPPED -> {
@@ -79,6 +65,22 @@ class MusicPlayFragment : Fragment() {
 
             override fun onStopTrackingTouch(p0: SeekBar?) { }
         })
+    }
+
+    private fun loadingMusic() {
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer().apply {
+                setDataSource(requireContext().resources.openRawResourceFd(R.raw.vivaldi_the_four_seasons))
+                setOnPreparedListener {
+                    btnStateModel.changeBtnState(READY)
+                    binding.seekBar.max = it.duration
+                }
+                setOnCompletionListener {
+                    btnStateModel.changeBtnState(STOPPED)
+                }
+            }
+        }
+        mediaPlayer?.prepare()
     }
 
     private fun playMusic() {
