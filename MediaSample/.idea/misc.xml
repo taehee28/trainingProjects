@@ -10,6 +10,8 @@
         <entry key="..\:/Users/KANG/AndroidStudioProjects/trainingProjects/MediaSample/app/src/main/res/layout/fragment_menu.xml" value="0.34791666666666665" />
         <entry key="..\:/Users/KANG/AndroidStudioProjects/trainingProjects/MediaSample/app/src/main/res/layout/fragment_music_play.xml" value="0.34791666666666665" />
         <entry key="..\:/Users/KANG/AndroidStudioProjects/trainingProjects/MediaSample/app/src/main/res/layout/fragment_video_play.xml" value="0.34791666666666665" />
+        <entry key="app/src/main/res/layout/fragment_audio_record.xml" value="0.5484375" />
+        <entry key="app/src/main/res/layout/fragment_video_play.xml" value="0.5484375" />
       </map>
     </option>
   </component>

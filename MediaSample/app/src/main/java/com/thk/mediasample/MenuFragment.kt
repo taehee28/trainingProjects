@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.thk.mediasample.databinding.FragmentMenuBinding
 
 class MenuFragment : Fragment() {
@@ -30,6 +31,9 @@ class MenuFragment : Fragment() {
         }
         binding.btnRecord.setOnClickListener {
             it.findNavController().navigate(R.id.action_menuFragment_to_audioRecordFragment)
+        }
+        binding.btnVideoPlay.setOnClickListener {
+            it.findNavController().navigate(R.id.action_menuFragment_to_videoPlayFragment)
         }
     }
 
