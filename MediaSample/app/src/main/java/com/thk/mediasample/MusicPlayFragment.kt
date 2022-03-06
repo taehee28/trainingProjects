@@ -107,4 +107,9 @@ class MusicPlayFragment : Fragment() {
         super.onStop()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

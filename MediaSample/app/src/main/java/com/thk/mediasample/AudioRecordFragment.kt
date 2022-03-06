@@ -22,7 +22,9 @@ import java.io.File
 class AudioRecordFragment : Fragment() {
     private val TAG = AudioRecordFragment::class.simpleName
 
-    private lateinit var binding: FragmentAudioRecordBinding
+    private var _binding: FragmentAudioRecordBinding? = null
+    private val binding
+        get() = _binding!!
 
     private val FILE_NAME = "recorded.mp4"
     private var recorder: MediaRecorder? = null
@@ -53,7 +55,7 @@ class AudioRecordFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_audio_record, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_audio_record, container, false)
         return binding.root
     }
 
@@ -167,6 +169,11 @@ class AudioRecordFragment : Fragment() {
         recordPlayer = null
 
         super.onStop()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

@@ -14,9 +14,9 @@ import com.thk.mediasample.databinding.FragmentVideoPlayBinding
 
 class VideoPlayFragment : Fragment() {
 
-    private lateinit var _binding: FragmentVideoPlayBinding
+    private var _binding: FragmentVideoPlayBinding? = null
     private val binding
-        get() = _binding
+        get() = _binding!!
 
     private var videoPlayer: ExoPlayer? = null
     private val videoUri: Uri by lazy {
@@ -71,6 +71,11 @@ class VideoPlayFragment : Fragment() {
             release()
             null
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
