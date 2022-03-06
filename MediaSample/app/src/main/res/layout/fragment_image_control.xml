@@ -23,8 +23,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="horizontal"
         app:flow_wrapMode="aligned"
-        app:constraint_referenced_ids="btn_compress"
+        app:constraint_referenced_ids="btn_loadImg, btn_compress"
         />
+
+    <Button
+        android:id="@+id/btn_loadImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이미지 불러오기"/>
 
     <Button
         android:id="@+id/btn_compress"
