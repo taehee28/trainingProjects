@@ -69,7 +69,4 @@ dependencies {
 
     // multidex
     implementation "androidx.multidex:multidex:$multidex_version"
-
-    // youtube extractor
-    implementation 'com.github.HaarigerHarald:android-youtubeExtractor:v2.1.0'
 }
