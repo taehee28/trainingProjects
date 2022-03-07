@@ -1,15 +1,17 @@
 package com.thk.mediasample
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.thk.mediasample.databinding.FragmentImageControlBinding
+import com.thk.mediasample.util.GlideApp
 
 class ImageControlFragment : Fragment() {
     private val TAG = ImageControlFragment::class.simpleName
@@ -18,8 +20,20 @@ class ImageControlFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    val galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        Log.d(TAG, "result: ${result.data?.data}")
+    private var currentPhotoUri: Uri? = null
+
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        currentPhotoUri = result.data?.data
+        loadCurrentPhotoInto(binding.imageView)
+    }
+
+    private fun loadCurrentPhotoInto(view: ImageView) {
+        currentPhotoUri?.let {
+            GlideApp.with(view)
+                .load(it)
+                .centerInside()
+                .into(view)
+        }
     }
 
     override fun onCreateView(
@@ -35,13 +49,11 @@ class ImageControlFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnLoadImg.setOnClickListener {
-
             val intent = Intent(Intent.ACTION_PICK).apply {
                 type = MediaStore.Images.Media.CONTENT_TYPE
                 type = "image/*"
             }
             galleryLauncher.launch(intent)
-
         }
     }
 
