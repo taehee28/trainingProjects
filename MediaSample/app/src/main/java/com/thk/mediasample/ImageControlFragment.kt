@@ -92,18 +92,8 @@ class ImageControlFragment : Fragment() {
             if (photoFile == null) return@setOnClickListener
 
             CoroutineScope(Dispatchers.Default).launch {
-                val outputStream = ByteArrayOutputStream()
 
-                GlideApp.with(requireContext())
-                    .asBitmap()
-                    .load(photoFile)
-                    .submit()
-                    .get().run {
-                    compress(Bitmap.CompressFormat.JPEG, 10, outputStream)
-                    recycle()
-                }
-
-                val compressedBitmap = BitmapFactory.decodeByteArray(outputStream.toByteArray(), 0, outputStream.size())
+                val compressedBitmap = compressBitmap()
 
                 withContext(Dispatchers.Main) {
                     GlideApp.with(requireContext()).load(compressedBitmap).into(binding.imageView)
@@ -119,6 +109,21 @@ class ImageControlFragment : Fragment() {
                 binding.imageView.setImageBitmap(sampledBitmap)
             }
         }
+    }
+
+    private fun compressBitmap(): Bitmap {
+        val outputStream = ByteArrayOutputStream()
+
+        GlideApp.with(requireContext())
+            .asBitmap()
+            .load(photoFile)
+            .submit()
+            .get().run {
+                compress(Bitmap.CompressFormat.JPEG, 10, outputStream)
+                recycle()
+            }
+
+        return BitmapFactory.decodeByteArray(outputStream.toByteArray(), 0, outputStream.size())
     }
 
     private fun decodeSampledBitmap(): Bitmap {
