@@ -35,6 +35,9 @@ class MenuFragment : Fragment() {
         binding.btnVideoPlay.setOnClickListener {
             it.findNavController().navigate(R.id.action_menuFragment_to_videoPlayFragment)
         }
+        binding.btnImageControl.setOnClickListener {
+            it.findNavController().navigate(R.id.action_menuFragment_to_imageControlFragment)
+        }
     }
 
     override fun onDestroyView() {
