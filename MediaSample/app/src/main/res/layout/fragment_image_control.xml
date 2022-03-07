@@ -21,9 +21,9 @@
         app:layout_constraintTop_toBottomOf="@id/imageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="horizontal"
-        app:flow_wrapMode="aligned"
-        app:constraint_referenced_ids="btn_loadImg, btn_compress"
+        android:orientation="vertical"
+        app:flow_verticalGap="16dp"
+        app:constraint_referenced_ids="btn_loadImg, tv_filePath, btn_compress"
         />
 
     <Button
@@ -31,6 +31,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="이미지 불러오기"/>
+
+    <TextView
+        android:id="@+id/tv_filePath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constrainedWidth="true"
+        />
 
     <Button
         android:id="@+id/btn_compress"
