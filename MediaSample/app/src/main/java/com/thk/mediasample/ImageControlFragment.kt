@@ -6,11 +6,13 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.thk.mediasample.databinding.FragmentImageControlBinding
@@ -108,7 +110,68 @@ class ImageControlFragment : Fragment() {
                 }
                 
             }
+
         }
+
+        binding.btnSampling.setOnClickListener {
+            photoFile?.let {
+                val sampledBitmap = decodeSampledBitmap()
+                binding.imageView.setImageBitmap(sampledBitmap)
+            }
+        }
+    }
+
+    private fun decodeSampledBitmap(): Bitmap {
+        val resizedBitmap = BitmapFactory.Options().run {
+            // 메모리에 비트맵을 로드하지 않고 정보만 가져오는 옵션
+            inJustDecodeBounds = true
+
+            BitmapFactory.decodeFile(photoFile?.toString(), this)
+            printBitmapSize(outWidth, outHeight)
+
+            inSampleSize = calculateInSampleSize(this, 100, 100)
+
+            // 비트맵 리턴하도록 변경 
+            inJustDecodeBounds = false
+
+            BitmapFactory.decodeFile(photoFile?.toString(), this)
+        }
+
+        printBitmapSize(resizedBitmap.width, resizedBitmap.height)
+
+        return resizedBitmap
+        
+    }
+
+    private fun printBitmapSize(width: Int, height: Int) {
+        Log.d(
+            TAG,
+            """
+                |>>>>> 
+                |size: width = ${width}, 
+                |      height = ${height}
+            """.trimMargin()
+        )
+    }
+
+    private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
+        // Raw height and width of image
+        val (height: Int, width: Int) = options.run { outHeight to outWidth }
+        var inSampleSize = 1
+
+        if (height > reqHeight || width > reqWidth) {
+
+            val halfHeight: Int = height / 2
+            val halfWidth: Int = width / 2
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while (halfHeight / inSampleSize >= reqHeight && halfWidth / inSampleSize >= reqWidth) {
+                inSampleSize *= 2
+            }
+        }
+
+        return inSampleSize
     }
 
 

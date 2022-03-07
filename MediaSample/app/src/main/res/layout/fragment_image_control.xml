@@ -23,7 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="vertical"
         app:flow_verticalGap="16dp"
-        app:constraint_referenced_ids="btn_loadImg, tv_filePath, btn_compress"
+        app:constraint_referenced_ids="btn_loadImg, tv_filePath, btn_compress, btn_sampling"
         />
 
     <Button
@@ -45,6 +45,12 @@
         android:layout_height="wrap_content"
         android:text="압축하기"
         />
+
+    <Button
+        android:id="@+id/btn_sampling"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sampling"/>
 
 
 
