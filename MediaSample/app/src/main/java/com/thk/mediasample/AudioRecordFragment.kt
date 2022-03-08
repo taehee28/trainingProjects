@@ -73,7 +73,9 @@ class AudioRecordFragment : Fragment() {
     }
 
     private fun startRecord() {
-        if (recorder == null) recorder = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) MediaRecorder() else MediaRecorder(requireContext())
+        if (recorder == null) {
+            recorder = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) MediaRecorder() else MediaRecorder(requireContext())
+        }
 
         recorder?.apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
@@ -91,7 +93,11 @@ class AudioRecordFragment : Fragment() {
     }
 
     private fun stopRecord() {
-        tryAndCatch { recorder?.stop() }
+        tryAndCatch {
+            recorder?.stop()
+            recorder?.release()
+            recorder = null
+        }
 
         changeBtnState(RecordingBtnState.IDLE)
     }
@@ -121,6 +127,9 @@ class AudioRecordFragment : Fragment() {
 
     private fun stopPlayingRecord() {
         recordPlayer?.stop()
+        recordPlayer?.release()
+        recordPlayer = null
+
         changeBtnState(RecordingBtnState.IDLE)
     }
 
