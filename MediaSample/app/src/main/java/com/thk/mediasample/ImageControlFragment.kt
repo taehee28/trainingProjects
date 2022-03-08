@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.thk.mediasample.databinding.FragmentImageControlBinding
 import com.thk.mediasample.util.GlideApp
@@ -74,7 +75,7 @@ class ImageControlFragment : Fragment() {
         binding.btnCompress.setOnClickListener {
             if (photoFile == null) return@setOnClickListener
 
-            CoroutineScope(Dispatchers.Default).launch {
+            lifecycleScope.launch {
 
                 val compressedBitmap = compressBitmap()
 
@@ -96,7 +97,7 @@ class ImageControlFragment : Fragment() {
 
     private fun loadPickedPhotoAsFile(uri: Uri?) {
         uri?.let {
-            CoroutineScope(Dispatchers.Default).launch {
+            lifecycleScope.launch {
                 photoFile = GlideApp.with(requireContext()).asFile().load(it).submit().get()
 
                 withContext(Dispatchers.Main) {
