@@ -21,6 +21,7 @@ class VideoPlayFragment : Fragment() {
     private var videoPlayer: ExoPlayer? = null
     private val videoUri: Uri by lazy {
         Uri.parse("android.resource://${requireActivity().packageName}/${R.raw.bird}")
+//        Uri.parse("https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4")
     }
 
     private val playWhenReady = false
