@@ -26,15 +26,15 @@ class AudioRecordFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    private val FILE_NAME = "recorded.mp4"
+    private var recordPlayer: MediaPlayer? = null
     private var recorder: MediaRecorder? = null
+
+    private val FILE_NAME = "recorded.mp4"
     private val outputPath: String by lazy {
         val appFilesDir = requireContext().filesDir
         val file = File(appFilesDir, FILE_NAME)
         file.absolutePath
     }
-
-    private var recordPlayer: MediaPlayer? = null
 
     private val permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
         if (result.any { permission -> !permission.value }) {
@@ -65,79 +65,84 @@ class AudioRecordFragment : Fragment() {
 
         permissionLauncher.launch(arrayOf(Manifest.permission.RECORD_AUDIO))
 
-        binding.btnStartRecord.setOnClickListener {
-            if (recorder == null) recorder = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) MediaRecorder() else MediaRecorder(requireContext())
-
-            recorder?.apply {
-                setAudioSource(MediaRecorder.AudioSource.MIC)
-                setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-                setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)
-                setOutputFile(outputPath)
-            }
-
-            trying {
-                recorder?.prepare()
-                recorder?.start()
-            }
-
-            changeBtnState(RecordingBtnState.RECORDING)
-        }
-
-        binding.btnStopRecord.setOnClickListener {
-            trying { recorder?.stop() }
-
-            changeBtnState(RecordingBtnState.IDLE)
-        }
-
-        binding.btnPlayRecord.setOnClickListener {
-            val recordedFile = findRecordedFile()
-            if (recordedFile == null) {
-                showToast("파일이 없습니다.")
-                return@setOnClickListener
-            }
-
-            if (recordPlayer == null) {
-                recordPlayer = MediaPlayer().apply {
-                    setDataSource(recordedFile.absolutePath)
-                    setOnPreparedListener {
-                        changeBtnState(RecordingBtnState.PLAYING)
-                        it.start()
-                    }
-                    setOnCompletionListener {
-                        changeBtnState(RecordingBtnState.IDLE)
-                        it.stop()
-                    }
-                }
-            }
-            recordPlayer?.prepare()
-        }
-
-        binding.btnStopPlayingRecord.setOnClickListener {
-            recordPlayer?.stop()
-            changeBtnState(RecordingBtnState.IDLE)
-        }
-
-        binding.btnRemoveFile.setOnClickListener {
-            val recordedFile = findRecordedFile()
-            val deleteResult = recordedFile?.delete() ?: false
-
-            showToast(
-                if (deleteResult) "파일이 삭제되었습니다." else "파일이 없습니다."
-            )
-
-        }
+        binding.btnStartRecord.setOnClickListener { startRecord() }
+        binding.btnStopRecord.setOnClickListener { stopRecord() }
+        binding.btnPlayRecord.setOnClickListener { playRecord() }
+        binding.btnStopPlayingRecord.setOnClickListener { stopPlayingRecord() }
+        binding.btnRemoveFile.setOnClickListener { removeRecordFile() }
     }
 
-    private fun trying(block: () -> Unit) {
+    private fun startRecord() {
+        if (recorder == null) recorder = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) MediaRecorder() else MediaRecorder(requireContext())
+
+        recorder?.apply {
+            setAudioSource(MediaRecorder.AudioSource.MIC)
+            setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+            setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)
+            setOutputFile(outputPath)
+        }
+
+        tryAndCatch {
+            recorder?.prepare()
+            recorder?.start()
+        }
+
+        changeBtnState(RecordingBtnState.RECORDING)
+    }
+
+    private fun stopRecord() {
+        tryAndCatch { recorder?.stop() }
+
+        changeBtnState(RecordingBtnState.IDLE)
+    }
+
+    private fun playRecord() {
+        val recordedFile = findRecordedFile()
+        if (recordedFile == null) {
+            showToast("파일이 없습니다.")
+            return
+        }
+
+        if (recordPlayer == null) {
+            recordPlayer = MediaPlayer().apply {
+                setDataSource(recordedFile.absolutePath)
+                setOnPreparedListener {
+                    changeBtnState(RecordingBtnState.PLAYING)
+                    it.start()
+                }
+                setOnCompletionListener {
+                    changeBtnState(RecordingBtnState.IDLE)
+                    it.stop()
+                }
+            }
+        }
+        recordPlayer?.prepare()
+    }
+
+    private fun stopPlayingRecord() {
+        recordPlayer?.stop()
+        changeBtnState(RecordingBtnState.IDLE)
+    }
+
+    private fun removeRecordFile() {
+        val recordedFile = findRecordedFile()
+        val deleteResult = recordedFile?.delete() ?: false
+
+        showToast(
+            if (deleteResult) "파일이 삭제되었습니다." else "파일이 없습니다."
+        )
+    }
+
+    private fun changeBtnState(btnState: RecordingBtnState) {
+        binding.btnState = btnState
+    }
+
+    private fun tryAndCatch(block: () -> Unit) {
         try {
             block()
         } catch (e: Exception) {
             Log.d(TAG, "Exception: ${e.message}")
         }
-    }
-
-    private fun changeBtnState(btnState: RecordingBtnState) {
-        binding.btnState = btnState
     }
 
     private fun findRecordedFile(): File? {
