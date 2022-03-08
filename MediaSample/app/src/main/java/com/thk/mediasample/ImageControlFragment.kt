@@ -28,8 +28,6 @@ class ImageControlFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    private var photoFile: File? = null
-
     private val permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
         if (result.any { permission -> !permission.value }) {
             AlertDialog.Builder(requireContext())
@@ -47,22 +45,7 @@ class ImageControlFragment : Fragment() {
         loadPickedPhotoAsFile(result.data?.data)
     }
 
-    private fun loadPickedPhotoAsFile(uri: Uri?) {
-        uri?.let {
-            CoroutineScope(Dispatchers.Default).launch {
-                photoFile = GlideApp.with(requireContext()).asFile().load(it).submit().get()
-
-                withContext(Dispatchers.Main) {
-                    displayFilePath(photoFile?.absolutePath)
-                }
-
-            }
-        }
-    }
-
-    private fun displayFilePath(path: String?) {
-        binding.tvFilePath.text = path
-    }
+    private var photoFile: File? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -96,7 +79,7 @@ class ImageControlFragment : Fragment() {
                 val compressedBitmap = compressBitmap()
 
                 withContext(Dispatchers.Main) {
-                    GlideApp.with(requireContext()).load(compressedBitmap).into(binding.imageView)
+                    loadBitmapIntoImageView(compressedBitmap)
                 }
                 
             }
@@ -106,9 +89,25 @@ class ImageControlFragment : Fragment() {
         binding.btnSampling.setOnClickListener {
             photoFile?.let {
                 val sampledBitmap = decodeSampledBitmap()
-                binding.imageView.setImageBitmap(sampledBitmap)
+                loadBitmapIntoImageView(sampledBitmap)
             }
         }
+    }
+
+    private fun loadPickedPhotoAsFile(uri: Uri?) {
+        uri?.let {
+            CoroutineScope(Dispatchers.Default).launch {
+                photoFile = GlideApp.with(requireContext()).asFile().load(it).submit().get()
+
+                withContext(Dispatchers.Main) {
+                    displayFilePath(photoFile?.absolutePath)
+                }
+            }
+        }
+    }
+
+    private fun displayFilePath(path: String?) {
+        binding.tvFilePath.text = path
     }
 
     private fun compressBitmap(): Bitmap {
@@ -126,6 +125,8 @@ class ImageControlFragment : Fragment() {
         return BitmapFactory.decodeByteArray(outputStream.toByteArray(), 0, outputStream.size())
     }
 
+    private fun loadBitmapIntoImageView(bitmap: Bitmap) = GlideApp.with(requireContext()).load(bitmap).into(binding.imageView)
+
     private fun decodeSampledBitmap(): Bitmap {
         val resizedBitmap = BitmapFactory.Options().run {
             // 메모리에 비트맵을 로드하지 않고 정보만 가져오는 옵션
@@ -136,7 +137,7 @@ class ImageControlFragment : Fragment() {
 
             inSampleSize = calculateInSampleSize(this, 100, 100)
 
-            // 비트맵 리턴하도록 변경 
+            // 비트맵 리턴하도록 변경
             inJustDecodeBounds = false
 
             BitmapFactory.decodeFile(photoFile?.toString(), this)
@@ -145,7 +146,7 @@ class ImageControlFragment : Fragment() {
         printBitmapSize(resizedBitmap.width, resizedBitmap.height)
 
         return resizedBitmap
-        
+
     }
 
     private fun printBitmapSize(width: Int, height: Int) {
@@ -160,17 +161,19 @@ class ImageControlFragment : Fragment() {
     }
 
     private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
-        // Raw height and width of image
+        // 이미지의 raw 넓이와 높이
         val (height: Int, width: Int) = options.run { outHeight to outWidth }
+        // 초기값: 1배수
         var inSampleSize = 1
 
+        // 원하는 크기보다 크면
         if (height > reqHeight || width > reqWidth) {
 
             val halfHeight: Int = height / 2
             val halfWidth: Int = width / 2
 
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
+            // 2의 제곱값이며, 해당 값으로 나눴을 때 높이와 넓이가
+            // 요구된 크기보다 큰 값을 가지도록 하는 inSampleSize를 계산한다.
             while (halfHeight / inSampleSize >= reqHeight && halfWidth / inSampleSize >= reqWidth) {
                 inSampleSize *= 2
             }
