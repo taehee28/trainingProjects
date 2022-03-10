@@ -75,7 +75,7 @@ class ImageControlFragment : Fragment() {
         binding.btnCompress.setOnClickListener {
             if (photoFile == null) return@setOnClickListener
 
-            lifecycleScope.launch {
+            lifecycleScope.launch(Dispatchers.Default) {
 
                 val compressedBitmap = compressBitmap()
 
@@ -97,7 +97,7 @@ class ImageControlFragment : Fragment() {
 
     private fun loadPickedPhotoAsFile(uri: Uri?) {
         uri?.let {
-            lifecycleScope.launch {
+            lifecycleScope.launch(Dispatchers.Default) {
                 photoFile = GlideApp.with(requireContext()).asFile().load(it).submit().get()
 
                 withContext(Dispatchers.Main) {
