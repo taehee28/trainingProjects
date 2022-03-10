@@ -9,15 +9,11 @@
         android:name="com.thk.servicesample.MenuFragment"
         android:label="MenuFragment" >
         <action
-            android:id="@+id/action_menuFragment_to_foregroundTimerFragment"
-            app:destination="@id/foregroundTimerFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            android:id="@+id/action_menuFragment_to_foregroundMusicPlayFragment"
+            app:destination="@id/foregroundMusicPlayFragment" />
     </fragment>
     <fragment
-        android:id="@+id/foregroundTimerFragment"
-        android:name="com.thk.servicesample.ForegroundTimerFragment"
-        android:label="ForegroundTimerFragment" />
+        android:id="@+id/foregroundMusicPlayFragment"
+        android:name="com.thk.servicesample.ForegroundMusicPlayFragment"
+        android:label="ForegroundMusicPlayFragment" />
 </navigation>

@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".service.TimerService"/>
+        <service android:name=".service.MusicPlayService"/>
     </application>
 
 </manifest>

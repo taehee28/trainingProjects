@@ -26,7 +26,7 @@ class MenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnForeground.setOnClickListener {
-            it.findNavController().navigate(R.id.action_menuFragment_to_foregroundTimerFragment)
+            it.findNavController().navigate(R.id.action_menuFragment_to_foregroundMusicPlayFragment)
         }
     }
 
