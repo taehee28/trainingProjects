@@ -6,15 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.viewModels
 import com.thk.servicesample.databinding.FragmentForegroundMusicPlayBinding
-import com.thk.servicesample.model.CountViewModel
 import com.thk.servicesample.service.MusicPlayService
 
 class ForegroundMusicPlayFragment : BaseFragment<FragmentForegroundMusicPlayBinding>() {
 
-    private val countViewModel: CountViewModel by viewModels()
     private val serviceIntent: Intent by lazy { Intent(requireActivity(), MusicPlayService::class.java) }
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentForegroundMusicPlayBinding {
