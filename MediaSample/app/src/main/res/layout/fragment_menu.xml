@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         android:orientation="vertical"
-        app:constraint_referenced_ids="btn_musicPlay, btn_record, btn_videoPlay"
+        app:constraint_referenced_ids="btn_musicPlay, btn_record, btn_videoPlay, btn_imageControl"
         app:flow_verticalGap="16dp"
         />
 
@@ -39,5 +39,11 @@
         android:layout_height="wrap_content"
         android:text="video play"
         />
+
+    <Button
+        android:id="@+id/btn_imageControl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Image control"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

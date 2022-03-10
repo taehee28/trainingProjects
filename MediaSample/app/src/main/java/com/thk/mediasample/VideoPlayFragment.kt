@@ -14,13 +14,14 @@ import com.thk.mediasample.databinding.FragmentVideoPlayBinding
 
 class VideoPlayFragment : Fragment() {
 
-    private lateinit var _binding: FragmentVideoPlayBinding
+    private var _binding: FragmentVideoPlayBinding? = null
     private val binding
-        get() = _binding
+        get() = _binding!!
 
     private var videoPlayer: ExoPlayer? = null
     private val videoUri: Uri by lazy {
         Uri.parse("android.resource://${requireActivity().packageName}/${R.raw.bird}")
+//        Uri.parse("https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4")
     }
 
     private val playWhenReady = false
@@ -71,6 +72,11 @@ class VideoPlayFragment : Fragment() {
             release()
             null
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

@@ -45,12 +45,9 @@ class MusicPlayFragment : Fragment() {
             when(it!!) {
                 LOADING -> loadingMusic()
                 PLAYING -> playMusic()
-                PAUSED -> mediaPlayer?.pause()
-                STOPPED -> {
-                    mediaPlayer?.stop()
-                    binding.seekBar.progress = 0
-                    btnStateModel.changeBtnState(LOADING)
-                }
+                PAUSED -> pauseMusic()
+                STOPPED -> stopMusic()
+                else -> {}
             }
         })
 
@@ -101,10 +98,25 @@ class MusicPlayFragment : Fragment() {
         }.start()
     }
 
+    private fun pauseMusic() {
+        mediaPlayer?.pause()
+    }
+
+    private fun stopMusic() {
+        mediaPlayer?.stop()
+        binding.seekBar.progress = 0
+        btnStateModel.changeBtnState(LOADING)
+    }
+
     override fun onStop() {
         mediaPlayer?.release()
         mediaPlayer = null
         super.onStop()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
