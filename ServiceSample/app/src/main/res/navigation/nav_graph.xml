@@ -22,5 +22,13 @@
     <fragment
         android:id="@+id/bindFirstFragment"
         android:name="com.thk.servicesample.BindFirstFragment"
-        android:label="BindFirstFragment" />
+        android:label="BindFirstFragment" >
+        <action
+            android:id="@+id/action_bindFirstFragment_to_bindSecondFragment"
+            app:destination="@id/bindSecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bindSecondFragment"
+        android:name="com.thk.servicesample.BindSecondFragment"
+        android:label="BindSecondFragment" />
 </navigation>

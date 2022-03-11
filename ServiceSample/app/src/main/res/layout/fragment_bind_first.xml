@@ -58,4 +58,15 @@
         android:text="바인드 해제"
         />
 
+    <Button
+        android:id="@+id/btn_moveToSecond"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="두번째 프래그먼트로 이동"
+        app:layout_constraintTop_toBottomOf="@id/flow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

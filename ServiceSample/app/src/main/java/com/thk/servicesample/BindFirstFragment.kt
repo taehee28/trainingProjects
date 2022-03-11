@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.findNavController
 import com.thk.servicesample.databinding.FragmentBindFirstBinding
 import com.thk.servicesample.service.CountingService
 import com.thk.servicesample.util.logd
@@ -51,12 +52,16 @@ class BindFirstFragment : BaseFragment<FragmentBindFirstBinding>() {
 
         binding.btnGetFromService.setOnClickListener { getNumberFromService() }
 
+        binding.btnMoveToSecond.setOnClickListener {
+            it.findNavController().navigate(R.id.action_bindFirstFragment_to_bindSecondFragment)
+        }
+
     }
 
     override fun onDestroy() {
         logd("onDestroy: FirstFragment")
         unbindCountingService()
-        
+
         super.onDestroy()
     }
 
