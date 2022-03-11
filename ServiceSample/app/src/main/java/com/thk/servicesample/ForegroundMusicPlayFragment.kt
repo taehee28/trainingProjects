@@ -20,13 +20,10 @@ class ForegroundMusicPlayFragment : BaseFragment<FragmentForegroundMusicPlayBind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnStartTimer.setOnClickListener {
-            startService()
-        }
+        toggleButtonEnabled(false)
 
-        binding.btnStopTimer.setOnClickListener {
-            stopService()
-        }
+        binding.btnStartTimer.setOnClickListener { startService() }
+        binding.btnStopTimer.setOnClickListener { stopService() }
 
     }
 
