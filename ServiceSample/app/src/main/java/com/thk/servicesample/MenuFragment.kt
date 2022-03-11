@@ -28,6 +28,9 @@ class MenuFragment : Fragment() {
         binding.btnForeground.setOnClickListener {
             it.findNavController().navigate(R.id.action_menuFragment_to_foregroundMusicPlayFragment)
         }
+        binding.btnBind.setOnClickListener {
+            it.findNavController().navigate(R.id.action_menuFragment_to_bindFirstFragment)
+        }
     }
 
     override fun onDestroyView() {

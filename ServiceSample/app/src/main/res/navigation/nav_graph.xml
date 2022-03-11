@@ -11,9 +11,16 @@
         <action
             android:id="@+id/action_menuFragment_to_foregroundMusicPlayFragment"
             app:destination="@id/foregroundMusicPlayFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_bindFirstFragment"
+            app:destination="@id/bindFirstFragment" />
     </fragment>
     <fragment
         android:id="@+id/foregroundMusicPlayFragment"
         android:name="com.thk.servicesample.ForegroundMusicPlayFragment"
         android:label="ForegroundMusicPlayFragment" />
+    <fragment
+        android:id="@+id/bindFirstFragment"
+        android:name="com.thk.servicesample.BindFirstFragment"
+        android:label="BindFirstFragment" />
 </navigation>
