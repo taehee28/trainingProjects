@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,8 @@ import androidx.navigation.findNavController
 import com.thk.servicesample.databinding.FragmentBindFirstBinding
 import com.thk.servicesample.service.CountingService
 import com.thk.servicesample.util.logd
+import java.lang.IllegalArgumentException
+import java.lang.IllegalStateException
 
 class BindFirstFragment : BaseFragment<FragmentBindFirstBinding>() {
     private lateinit var countingService: CountingService
@@ -65,45 +68,43 @@ class BindFirstFragment : BaseFragment<FragmentBindFirstBinding>() {
     }
 
     private fun bindCountingService() {
-        check(checkUnbound) {
+        runIfUnbound {
             Intent(requireContext(), CountingService::class.java).also {
                 requireActivity().bindService(it, connection, Context.BIND_AUTO_CREATE)
             }
         }
+
     }
 
     private fun unbindCountingService() {
-        check(checkBound) {
+        runIfBound {
             requireActivity().unbindService(connection)
             isBound = false
         }
     }
 
     private fun getNumberFromService() {
-        check(checkBound) {
+        runIfBound {
             val number = countingService.getNumber()
             toasting("number: $number")
         }
     }
 
-    private inline fun check(checkBlock: () -> Unit, block: () -> Unit) {
+    private inline fun runIfUnbound(block: () -> Unit) {
         try {
-            checkBlock()
+            require(!isBound) { "서비스가 이미 연결됨" }
             block()
-        } catch (e: Exception) {
+        } catch (e: IllegalArgumentException) {
             toasting(e.message!!)
         }
     }
 
-    private val checkUnbound = {
-        if (isBound) {
-            throw Exception("이미 연결되어 있습니다.")
-        }
-    }
-
-    private val checkBound = {
-        if (!isBound) {
-            throw Exception("연결된 서비스가 없습니다.")
+    private inline fun runIfBound(block: () -> Unit) {
+        try {
+            require(isBound) { "연결된 서비스가 없음" }
+            block()
+        } catch (e: IllegalArgumentException) {
+            toasting(e.message!!)
         }
     }
 
