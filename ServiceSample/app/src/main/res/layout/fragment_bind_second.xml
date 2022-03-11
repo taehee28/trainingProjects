@@ -26,7 +26,7 @@
         android:id="@+id/btn_getFromService"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="서비스에서 값 받기"
         />
 
@@ -34,7 +34,7 @@
         android:id="@+id/btn_unbindService"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="바인드 해제"
         />
 
