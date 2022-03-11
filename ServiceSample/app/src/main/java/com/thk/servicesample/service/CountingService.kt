@@ -21,7 +21,7 @@ class CountingService : Service() {
         return binder
     }
 
-    override fun onCreate() {   // 서비스 연결될 때 마다 호출됨
+    override fun onCreate() {
         super.onCreate()
         logd("Service Created!")
     }
