@@ -14,7 +14,6 @@ import androidx.navigation.findNavController
 import com.thk.servicesample.databinding.FragmentBindFirstBinding
 import com.thk.servicesample.service.CountingService
 import com.thk.servicesample.util.logd
-import kotlin.properties.Delegates
 
 class BindFirstFragment : BaseFragment<FragmentBindFirstBinding>() {
     private lateinit var countingService: CountingService
@@ -66,30 +65,45 @@ class BindFirstFragment : BaseFragment<FragmentBindFirstBinding>() {
     }
 
     private fun bindCountingService() {
-        if (!isBound) {
+        check(checkUnbound) {
             Intent(requireContext(), CountingService::class.java).also {
                 requireActivity().bindService(it, connection, Context.BIND_AUTO_CREATE)
             }
-        } else {
-            toasting("이미 연결되어 있습니다.")
         }
     }
 
     private fun unbindCountingService() {
-        if (isBound) {
+        check(checkBound) {
             requireActivity().unbindService(connection)
             isBound = false
-        } else {
-            toasting("해제할 서비스가 없습니다.")
         }
     }
 
     private fun getNumberFromService() {
-        if (isBound) {
+        check(checkBound) {
             val number = countingService.getNumber()
             toasting("number: $number")
-        } else {
-            toasting("연결된 서비스가 없습니다.")
+        }
+    }
+
+    private inline fun check(checkBlock: () -> Unit, block: () -> Unit) {
+        try {
+            checkBlock()
+            block()
+        } catch (e: Exception) {
+            toasting(e.message!!)
+        }
+    }
+
+    private val checkUnbound = {
+        if (isBound) {
+            throw Exception("이미 연결되어 있습니다.")
+        }
+    }
+
+    private val checkBound = {
+        if (!isBound) {
+            throw Exception("연결된 서비스가 없습니다.")
         }
     }
 
