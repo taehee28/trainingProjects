@@ -72,6 +72,21 @@ class AudioRecordFragment : Fragment() {
         binding.btnRemoveFile.setOnClickListener { removeRecordFile() }
     }
 
+    override fun onStop() {
+        recorder?.release()
+        recorder = null
+
+        recordPlayer?.release()
+        recordPlayer = null
+
+        super.onStop()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun startRecord() {
         if (recorder == null) {
             recorder = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) MediaRecorder() else MediaRecorder(requireContext())
@@ -100,6 +115,14 @@ class AudioRecordFragment : Fragment() {
         }
 
         changeBtnState(RecordingBtnState.IDLE)
+    }
+
+    private fun tryAndCatch(block: () -> Unit) {
+        try {
+            block()
+        } catch (e: Exception) {
+            Log.d(TAG, "Exception: ${e.message}")
+        }
     }
 
     private fun playRecord() {
@@ -133,6 +156,10 @@ class AudioRecordFragment : Fragment() {
         changeBtnState(RecordingBtnState.IDLE)
     }
 
+    private fun changeBtnState(btnState: RecordingBtnState) {
+        binding.btnState = btnState
+    }
+
     private fun removeRecordFile() {
         val recordedFile = findRecordedFile()
         val deleteResult = recordedFile?.delete() ?: false
@@ -140,18 +167,6 @@ class AudioRecordFragment : Fragment() {
         showToast(
             if (deleteResult) "파일이 삭제되었습니다." else "파일이 없습니다."
         )
-    }
-
-    private fun changeBtnState(btnState: RecordingBtnState) {
-        binding.btnState = btnState
-    }
-
-    private fun tryAndCatch(block: () -> Unit) {
-        try {
-            block()
-        } catch (e: Exception) {
-            Log.d(TAG, "Exception: ${e.message}")
-        }
     }
 
     private fun findRecordedFile(): File? {
@@ -173,21 +188,6 @@ class AudioRecordFragment : Fragment() {
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onStop() {
-        recorder?.release()
-        recorder = null
-
-        recordPlayer?.release()
-        recordPlayer = null
-
-        super.onStop()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
 }

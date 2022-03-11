@@ -64,6 +64,17 @@ class MusicPlayFragment : Fragment() {
         })
     }
 
+    override fun onStop() {
+        mediaPlayer?.release()
+        mediaPlayer = null
+        super.onStop()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun loadingMusic() {
         if (mediaPlayer == null) {
             mediaPlayer = MediaPlayer().apply {
@@ -106,17 +117,6 @@ class MusicPlayFragment : Fragment() {
         mediaPlayer?.stop()
         binding.seekBar.progress = 0
         btnStateModel.changeBtnState(LOADING)
-    }
-
-    override fun onStop() {
-        mediaPlayer?.release()
-        mediaPlayer = null
-        super.onStop()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
 }
