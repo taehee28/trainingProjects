@@ -20,6 +20,9 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>() {
         binding.btnForeground.setOnClickListener {
             it.findNavController().navigate(R.id.action_menuFragment_to_foregroundMusicPlayFragment)
         }
+        binding.btnBackground.setOnClickListener {
+            it.findNavController().navigate(R.id.action_menuFragment_to_workerFragment)
+        }
         binding.btnBind.setOnClickListener {
             it.findNavController().navigate(R.id.action_menuFragment_to_bindFirstFragment)
         }
