@@ -50,4 +50,6 @@ dependencies {
 
     // WorkManager
     implementation "androidx.work:work-runtime-ktx:2.7.1"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 }

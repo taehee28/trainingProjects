@@ -29,6 +29,7 @@ class GenerateNumberWorker(context: Context, params: WorkerParameters) : Worker(
             val output = workDataOf(KEY_RESULT to number)
 
             // Data를 전달하면서 Result 리턴
+            // 작업 체이닝 시 다음 작업의 input으로 전달됨
             Result.success(output)
         } catch (e: IllegalArgumentException) {
             Result.failure()

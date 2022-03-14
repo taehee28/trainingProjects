@@ -5,11 +5,14 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.thk.servicesample.util.KEY_RESULT
+import com.thk.servicesample.util.logd
 import com.thk.servicesample.util.sleep
 import java.lang.IllegalArgumentException
 
 class SumWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
     override fun doWork(): Result {
+        logd(">> 작업 시작 ")
+
         // 이전 작업의 output Data를 input으로 받음
         val inputNum = inputData.getInt(KEY_RESULT, -1)
         var result = 0
@@ -27,6 +30,7 @@ class SumWorker(context: Context, params: WorkerParameters) : Worker(context, pa
             for (i in 1 until inputNum) {
                 result += i
             }
+            logd(">> result = $result")
 
             // 작업의 결과를 Data로 만듬
             val output = workDataOf(KEY_RESULT to result)
