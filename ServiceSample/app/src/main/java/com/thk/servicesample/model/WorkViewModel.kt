@@ -9,6 +9,7 @@ import androidx.work.*
 import com.thk.servicesample.util.GENERATE_AND_SUM_WORK_NAME
 import com.thk.servicesample.util.WORK_TAG
 import com.thk.servicesample.worker.GenerateNumberWorker
+import com.thk.servicesample.worker.NotificationWorker
 import com.thk.servicesample.worker.SomeWorker
 import com.thk.servicesample.worker.SumWorker
 import java.lang.IllegalArgumentException
@@ -66,19 +67,50 @@ class WorkViewModel(application: Application) : ViewModel() {
         workManager.enqueue(OneTimeWorkRequest.from(SomeWorker::class.java))
     }
 
-    fun periodWork() {
-        // TODO: 반복횟수 지정 찾아보기
-        val request = PeriodicWorkRequestBuilder<SomeWorker>(2000, TimeUnit.MILLISECONDS).build()
+    /**
+     * 알림을 띄우는 Worker를 15분 간격으로 실행
+     */
+    fun periodicWork() {
+        val request = PeriodicWorkRequestBuilder<NotificationWorker>(15, TimeUnit.MINUTES).addTag(WORK_TAG).build()
 
         workManager.enqueue(request)
     }
 
+    /**
+     * 동시 실행
+     */
     fun parallelWork() {
+        val workA = OneTimeWorkRequestBuilder<GenerateNumberWorker>().build()
+        val workB = OneTimeWorkRequestBuilder<SomeWorker>().build()
 
+        // 작업을 list로 만들어서 넘김
+        workManager.enqueue(listOf(workA, workB))
     }
 
+    /**
+     * 동시 실행하는 작업들을 연결
+     */
     fun combineWork() {
+        val workA = OneTimeWorkRequestBuilder<SomeWorker>().build()
+        val workB = OneTimeWorkRequestBuilder<GenerateNumberWorker>().build()
 
+        // workA -> workB 순서로 실행됨
+        val chain1: WorkContinuation = workManager.beginWith(workA).then(workB)
+
+
+        val workC = OneTimeWorkRequestBuilder<SomeWorker>().build()
+        val workD = OneTimeWorkRequestBuilder<GenerateNumberWorker>().build()
+
+        // workC -> workD 순서로 실행됨
+        val chain2: WorkContinuation = workManager.beginWith(workC).then(workD)
+
+        val workE = OneTimeWorkRequestBuilder<SumWorker>()
+            .setInputMerger(ArrayCreatingInputMerger::class)    // 여러 체인에서 inputData가 오는 경우 어떻게 inputData를 받을지 결정
+            .build()
+
+        // chain1과 chain2가 동시 실행된 후 workE 실행
+        val chain3: WorkContinuation = WorkContinuation.combine(listOf(chain1, chain2)).then(workE)
+        chain3.enqueue()
     }
 
     fun cancelWork() {

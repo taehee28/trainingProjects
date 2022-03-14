@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import com.thk.servicesample.databinding.FragmentWorkerBinding
 import com.thk.servicesample.model.WorkViewModel
 import com.thk.servicesample.util.KEY_RESULT
-import com.thk.servicesample.util.logd
 
 class WorkerFragment : BaseFragment<FragmentWorkerBinding>() {
 
@@ -23,22 +22,15 @@ class WorkerFragment : BaseFragment<FragmentWorkerBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnGetRandom.setOnClickListener {
-            viewModel.generateRandomNumber()
-        }
+        binding.btnGetRandom.setOnClickListener { viewModel.generateRandomNumber() }
+        binding.btnRandomAndSum.setOnClickListener { viewModel.generateAndSum() }
+        binding.btnCoroutineWork.setOnClickListener { viewModel.coroutineWork() }
+        binding.btnPeriodicWork.setOnClickListener { viewModel.periodicWork() }
+        binding.btnParallelWork.setOnClickListener { viewModel.parallelWork() }
+        binding.btnCombineWork.setOnClickListener { viewModel.combineWork() }
+        binding.btnCancel.setOnClickListener { viewModel.cancelWork() }
 
-        binding.btnRandomAndSum.setOnClickListener {
-            viewModel.generateAndSum()
-        }
-
-        binding.btnCoroutineWork.setOnClickListener {
-            viewModel.coroutineWork()
-        }
-
-        binding.btnCancel.setOnClickListener {
-            viewModel.cancelWork()
-        }
-
+        // 작업 상태 관찰
         viewModel.workInfos.observe(viewLifecycleOwner) {
 //            logd(it.size.toString())
             if (it.isNullOrEmpty()) {

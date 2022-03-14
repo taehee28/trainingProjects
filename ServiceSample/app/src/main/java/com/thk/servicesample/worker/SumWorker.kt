@@ -8,13 +8,23 @@ import com.thk.servicesample.util.KEY_RESULT
 import com.thk.servicesample.util.logd
 import com.thk.servicesample.util.sleep
 import java.lang.IllegalArgumentException
+import kotlin.math.max
 
+/**
+ * 1부터 input으로 들어온 값까지 더하는 작업을 하는 Worker
+ */
 class SumWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
     override fun doWork(): Result {
         logd(">> 작업 시작 ")
 
         // 이전 작업의 output Data를 input으로 받음
-        val inputNum = inputData.getInt(KEY_RESULT, -1)
+        val inputNum = inputData.getIntArray(KEY_RESULT)?.let {
+            max(it[0], it[1])
+        } ?: kotlin.run {
+            inputData.getInt(KEY_RESULT, -1)
+        }
+        logd(">> inputNum = $inputNum")
+
         var result = 0
 
         // 작업이 길어질 수 있도록 잠시동안 sleep

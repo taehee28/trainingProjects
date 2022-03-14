@@ -35,7 +35,6 @@
         android:id="@+id/btn_randomAndSum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="1부터 n까지 더하기"/>
 
     <Button
@@ -44,6 +43,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="코루틴"/>
+
+    <Button
+        android:id="@+id/btn_periodicWork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="반복 알림"/>
+
+    <Button
+        android:id="@+id/btn_parallelWork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="동시 실행"
+        />
+
+    <Button
+        android:id="@+id/btn_combineWork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="combine"/>
 
     <Button
         android:id="@+id/btn_cancel"
