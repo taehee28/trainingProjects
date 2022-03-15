@@ -31,15 +31,22 @@ class MusicPlayService : Service() {
 
         initMusicPlayer()
 
+        // 오레오 버전 이상 부터는 Notification 채널을 생성해주어야 함
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel()
         }
+        // Notification 생성
         val noti = buildNotification()
+
+        // 서비스가 시작되고 수 초 내에 서비스가 실행중임을 알리는 Notification을 등록해주어야 함
         startForeground(NOTIFICATION_ID, noti)
 
         return START_STICKY
     }
 
+    /**
+     * MediaPlayer 초기화 및 준비
+     */
     private fun initMusicPlayer() {
         musicPlayer = MediaPlayer().apply {
             setDataSource(applicationContext.resources.openRawResourceFd(R.raw.vivaldi_the_four_seasons))
@@ -51,6 +58,9 @@ class MusicPlayService : Service() {
         }
     }
 
+    /**
+     * MediaPlayer 해제
+     */
     private fun releaseMusicPlayer() {
         musicPlayer = musicPlayer?.run {
             stop()
@@ -59,6 +69,9 @@ class MusicPlayService : Service() {
         }
     }
 
+    /**
+     * Notification 채널 생성
+     */
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel() {
         val notiChannel = NotificationChannel(CHANNEL_ID, "Music Play Channel", NotificationManager.IMPORTANCE_DEFAULT)
@@ -67,6 +80,9 @@ class MusicPlayService : Service() {
         notiManager.createNotificationChannel(notiChannel)
     }
 
+    /**
+     * Notification 내용 작성하고 생성
+     */
     private fun buildNotification(): Notification {
         val notiIntent = Intent(applicationContext, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, notiIntent, PendingIntent.FLAG_CANCEL_CURRENT)
