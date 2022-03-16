@@ -62,6 +62,7 @@ class BindMessengerFragment : BaseFragment<FragmentBindMessengerBinding>() {
     override fun onStart() {
         super.onStart()
 
+        // 서비스에 바인드
         Intent(requireActivity(), MessengerService::class.java).also {
             requireActivity().bindService(it, connection, Context.BIND_AUTO_CREATE)
         }

@@ -40,9 +40,12 @@ class WorkerFragment : BaseFragment<FragmentWorkerBinding>() {
             // 현재의 작업만 가져옴
             val workInfo = it[0]
 
+            // 작업이 끝났는지 확인
             if (workInfo.state.isFinished) {
                 binding.progressBar.visibility = View.INVISIBLE
 
+                // 마지막 작업의 output 가져오기
+                // output이 없으면 -1 리턴
                 val result = workInfo.outputData.getInt(KEY_RESULT, -1)
 
                 binding.tvResult.text = result.toString()
@@ -50,6 +53,7 @@ class WorkerFragment : BaseFragment<FragmentWorkerBinding>() {
                 binding.progressBar.visibility = View.VISIBLE
             }
 
+            // 끝난 작업들의 정보들을 제거
             viewModel.pruneWork()
         }
 

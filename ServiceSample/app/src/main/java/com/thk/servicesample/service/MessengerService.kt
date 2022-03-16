@@ -30,6 +30,7 @@ class MessengerService : Service() {
         // 클라이언트의 메신저
         private var clientMessenger: Messenger? = null
 
+        // 메세지가 도착하는 메서드 
         override fun handleMessage(msg: Message) {
             when (msg.what) {
                 // 클라이언트가 보내준 클라이언트의 메신저 획득

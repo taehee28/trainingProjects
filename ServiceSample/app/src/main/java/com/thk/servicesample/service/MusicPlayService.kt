@@ -29,6 +29,7 @@ class MusicPlayService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d(TAG, "onStartCommand: ")
 
+        // 음악 플레이어 초기화
         initMusicPlayer()
 
         // 오레오 버전 이상 부터는 Notification 채널을 생성해주어야 함

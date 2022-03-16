@@ -17,14 +17,16 @@ import com.thk.servicesample.util.logd
 import java.lang.IllegalArgumentException
 
 class BindSecondFragment : BaseFragment<FragmentBindSecondBinding>() {
-
+    // 서비스의 인스턴스
     private lateinit var countingService: CountingService
     private var isBound = false
 
+    // 서비스 바인딩 상태에 대한 콜백
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(p0: ComponentName?, binder: IBinder?) {
             logd("service connected")
 
+            // 바인더를 통해 서비스의 인스턴스를 획득
             val localBinder = binder as CountingService.LocalBinder
             countingService = localBinder.getService()
 
@@ -61,6 +63,9 @@ class BindSecondFragment : BaseFragment<FragmentBindSecondBinding>() {
         super.onDestroy()
     }
 
+    /**
+     * 서비스에 바인딩
+     */
     private fun bindCountingService() {
         runIfUnbound {
             Intent(requireContext(), CountingService::class.java).also {
@@ -70,6 +75,9 @@ class BindSecondFragment : BaseFragment<FragmentBindSecondBinding>() {
 
     }
 
+    /**
+     * 서비스와 바인딩 해제
+     */
     private fun unbindCountingService() {
         runIfBound {
             requireActivity().unbindService(connection)
@@ -77,6 +85,9 @@ class BindSecondFragment : BaseFragment<FragmentBindSecondBinding>() {
         }
     }
 
+    /**
+     * 서비스의 공개 메서드 호출
+     */
     private fun getNumberFromService() {
         runIfBound {
             val number = countingService.getNumber()
