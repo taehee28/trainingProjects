@@ -22,8 +22,8 @@ class ForegroundMusicPlayFragment : BaseFragment<FragmentForegroundMusicPlayBind
 
         toggleButtonEnabled(false)
 
-        binding.btnStartTimer.setOnClickListener { startService() }
-        binding.btnStopTimer.setOnClickListener { stopService() }
+        binding.btnStartMusic.setOnClickListener { startService() }
+        binding.btnStopMusic.setOnClickListener { stopService() }
 
     }
 
@@ -44,8 +44,8 @@ class ForegroundMusicPlayFragment : BaseFragment<FragmentForegroundMusicPlayBind
     }
 
     private fun toggleButtonEnabled(isPlaying: Boolean) {
-        binding.btnStartTimer.isEnabled = !isPlaying
-        binding.btnStopTimer.isEnabled = isPlaying
+        binding.btnStartMusic.isEnabled = !isPlaying
+        binding.btnStopMusic.isEnabled = isPlaying
     }
 
 }
