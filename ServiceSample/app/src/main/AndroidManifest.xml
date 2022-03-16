@@ -23,6 +23,9 @@
 
         <service android:name=".service.MusicPlayService"/>
         <service android:name=".service.CountingService"/>
+        <service android:name=".service.MessengerService"
+            android:process=":Messenger_process"
+            android:enabled="true"/>
     </application>
 
 </manifest>

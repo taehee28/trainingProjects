@@ -12,11 +12,15 @@
             android:id="@+id/action_menuFragment_to_foregroundMusicPlayFragment"
             app:destination="@id/foregroundMusicPlayFragment" />
         <action
-            android:id="@+id/action_menuFragment_to_bindFirstFragment"
-            app:destination="@id/bindFirstFragment" />
-        <action
             android:id="@+id/action_menuFragment_to_workerFragment"
             app:destination="@id/workerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_menuFragment_to_bindMenuFragment"
+            app:destination="@id/bindMenuFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -42,4 +46,27 @@
         android:id="@+id/workerFragment"
         android:name="com.thk.servicesample.WorkerFragment"
         android:label="WorkerFragment" />
+    <fragment
+        android:id="@+id/bindMenuFragment"
+        android:name="com.thk.servicesample.BindMenuFragment"
+        android:label="BindMenuFragment" >
+        <action
+            android:id="@+id/action_bindMenuFragment_to_bindFirstFragment"
+            app:destination="@id/bindFirstFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_bindMenuFragment_to_bindMessengerFragment"
+            app:destination="@id/bindMessengerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/bindMessengerFragment"
+        android:name="com.thk.servicesample.BindMessengerFragment"
+        android:label="BindMessengerFragment" />
 </navigation>

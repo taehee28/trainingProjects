@@ -24,7 +24,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>() {
             it.findNavController().navigate(R.id.action_menuFragment_to_workerFragment)
         }
         binding.btnBind.setOnClickListener {
-            it.findNavController().navigate(R.id.action_menuFragment_to_bindFirstFragment)
+            it.findNavController().navigate(R.id.action_menuFragment_to_bindMenuFragment)
         }
     }
 }
