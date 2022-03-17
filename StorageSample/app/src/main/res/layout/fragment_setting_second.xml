@@ -11,11 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="이름"
+        android:enabled="false"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tf_name"
-            android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="e-mail"
-        android:maxLines="1"
+        android:enabled="false"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
         <com.google.android.material.textfield.TextInputEditText
@@ -39,28 +39,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="나이"
+        android:enabled="false"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tf_age"
-            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_save"
+        android:id="@+id/btn_load"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="save"/>
-
-    <Button
-        android:id="@+id/btn_moveToSecond"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="move to load screen"/>
+        android:text="load"/>
 
 </LinearLayout>

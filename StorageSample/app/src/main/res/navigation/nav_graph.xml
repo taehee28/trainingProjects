@@ -19,5 +19,17 @@
     <fragment
         android:id="@+id/settingFirstFragment"
         android:name="com.thk.storagesample.SettingFirstFragment"
-        android:label="SettingFirstFragment" />
+        android:label="SettingFirstFragment" >
+        <action
+            android:id="@+id/action_settingFirstFragment_to_settingSecondFragment"
+            app:destination="@id/settingSecondFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingSecondFragment"
+        android:name="com.thk.storagesample.SettingSecondFragment"
+        android:label="SettingSecondFragment" />
 </navigation>
