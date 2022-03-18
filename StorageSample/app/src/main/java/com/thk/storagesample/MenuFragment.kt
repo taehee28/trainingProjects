@@ -17,7 +17,10 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnPreference.setOnClickListener { it.navigate(R.id.action_menuFragment_to_settingFirstFragment) }
+        binding.run {
+            btnPreference.setOnClickListener { it.navigate(R.id.action_menuFragment_to_settingFirstFragment) }
+            btnLogging.setOnClickListener { it.navigate(R.id.action_menuFragment_to_loggingFragment) }
+        }
     }
 
 
