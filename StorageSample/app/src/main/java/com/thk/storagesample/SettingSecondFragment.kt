@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.thk.storagesample.databinding.FragmentSettingSecondBinding
+import com.thk.storagesample.util.getUserInfo
+import com.thk.storagesample.util.getUserInfoPreference
 
 class SettingSecondFragment : BaseFragment<FragmentSettingSecondBinding>() {
     override fun getBinding(

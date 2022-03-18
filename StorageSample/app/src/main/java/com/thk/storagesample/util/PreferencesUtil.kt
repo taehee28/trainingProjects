@@ -1,4 +1,4 @@
-package com.thk.storagesample
+package com.thk.storagesample.util
 
 import android.content.Context
 import android.content.SharedPreferences

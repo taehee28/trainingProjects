@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.thk.storagesample.databinding.FragmentSettingFirstBinding
+import com.thk.storagesample.util.getUserInfoPreference
+import com.thk.storagesample.util.setUserInfo
 import java.lang.IllegalArgumentException
 
 class SettingFirstFragment : BaseFragment<FragmentSettingFirstBinding>() {
