@@ -15,7 +15,11 @@ import java.lang.IllegalStateException
 class LoggingFragment : BaseFragment<FragmentLoggingBinding>() {
 
     private val listAdapter: LogListAdapter by lazy { LogListAdapter() }
+
+    // SQLite <-> Room 데이터베이스 변경 
     private val databaseManager: DatabaseManager by lazy { SqliteManager.getInstance(requireContext()) }
+//    private val databaseManager: DatabaseManager by lazy { RoomManager.getInstance(requireContext()) }
+
     private var isModifyMode = false
     private var currentModifiedNumber = -1
 

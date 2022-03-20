@@ -3,6 +3,7 @@ package com.thk.storagesample.util
 import android.content.Context
 import android.database.SQLException
 import android.database.sqlite.SQLiteTransactionListener
+import androidx.room.Room
 import com.thk.storagesample.model.LogItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -66,6 +67,42 @@ class SqliteManager private constructor(context: Context) : DatabaseManager {
     }
 
     private fun tryExecute(block: () -> Unit): Boolean {
+        return try {
+            block()
+            true
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            false
+        }
+    }
+}
+
+class RoomManager private constructor(context: Context) : DatabaseManager {
+    private val database = Room.databaseBuilder(context, LogDatabase::class.java, DatabaseInfo.DATABASE_NAME_ROOM).build()
+
+    companion object {
+        private var roomManager: RoomManager? = null
+        fun getInstance(context: Context) = roomManager ?: RoomManager(context)
+    }
+
+    override suspend fun insert(content: String) = tryExecute {
+        val newItem = LogItem(0, content)
+        database.logItemDao().insert(newItem)
+    }
+
+    override suspend fun delete(number: Int) = tryExecute {
+        val deleteItem = LogItem(number, "")
+        database.logItemDao().delete(deleteItem)
+    }
+
+    override suspend fun modify(number: Int, newContent: String) = tryExecute {
+        val modifyItem = LogItem(number, newContent)
+        database.logItemDao().modify(modifyItem)
+    }
+
+    override suspend fun getAllLog(): List<LogItem> = database.logItemDao().getAll()
+
+    private suspend fun tryExecute(block: suspend () -> Unit): Boolean {
         return try {
             block()
             true
