@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.thk.storagesample.databinding.FragmentSettingFirstBinding
 import com.thk.storagesample.util.getUserInfoPreference
+import com.thk.storagesample.util.isNotEmptyOrBlank
+import com.thk.storagesample.util.navigate
 import com.thk.storagesample.util.setUserInfo
 import java.lang.IllegalArgumentException
 

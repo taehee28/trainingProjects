@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.navigation.findNavController
 import com.thk.storagesample.databinding.FragmentMenuBinding
+import com.thk.storagesample.util.navigate
 
 class MenuFragment : BaseFragment<FragmentMenuBinding>() {
 

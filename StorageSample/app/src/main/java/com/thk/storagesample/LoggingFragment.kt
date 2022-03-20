@@ -10,7 +10,9 @@ import androidx.lifecycle.lifecycleScope
 import com.thk.storagesample.databinding.FragmentLoggingBinding
 import com.thk.storagesample.model.LogItem
 import com.thk.storagesample.util.DatabaseManager
+import com.thk.storagesample.util.LogListAdapter
 import com.thk.storagesample.util.SqliteManager
+import com.thk.storagesample.util.isNotEmptyOrBlank
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

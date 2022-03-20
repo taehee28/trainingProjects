@@ -1,4 +1,4 @@
-package com.thk.storagesample
+package com.thk.storagesample.util
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

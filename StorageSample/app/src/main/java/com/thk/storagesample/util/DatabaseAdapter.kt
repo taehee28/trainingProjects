@@ -3,7 +3,6 @@ package com.thk.storagesample.util
 import android.content.Context
 import android.database.SQLException
 import android.database.sqlite.SQLiteTransactionListener
-import com.thk.storagesample.logd
 import com.thk.storagesample.model.LogItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
