@@ -34,7 +34,10 @@ class LoggingFragment : BaseFragment<FragmentLoggingBinding>() {
             btnOk.setOnClickListener { clickOk() }
         }
 
-        getAllLog()
+
+        lifecycleScope.launch {
+            getAllLog()
+        }
 
     }
 
@@ -59,7 +62,17 @@ class LoggingFragment : BaseFragment<FragmentLoggingBinding>() {
         binding.textField.setText(content)
     }
 
-    private fun deleteLog(number: Int) {
+    private fun deleteLog(number: Int) = lifecycleScope.launch {
+        try {
+            val isSuccess = databaseManager.delete(number)
+            check(isSuccess) { "query 실패" }
+
+            getAllLog()
+
+        } catch (e: IllegalStateException) {
+            e.printStackTrace()
+            Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+        }
 
     }
 
@@ -79,8 +92,7 @@ class LoggingFragment : BaseFragment<FragmentLoggingBinding>() {
 
             check(isSuccess) { "query 실패" }
 
-            val list = databaseManager.getAllLog()
-            listAdapter.submitList(list) {
+            getAllLog {
                 binding.textField.run {
                     setText("")
                     clearFocus()
@@ -93,9 +105,9 @@ class LoggingFragment : BaseFragment<FragmentLoggingBinding>() {
         }
     }
 
-    private fun getAllLog() = lifecycleScope.launch {
+    private suspend fun getAllLog(block: () -> Unit = {}) {
         val list = databaseManager.getAllLog()
-        listAdapter.submitList(list)
+        listAdapter.submitList(list) { block() }
     }
 
 
