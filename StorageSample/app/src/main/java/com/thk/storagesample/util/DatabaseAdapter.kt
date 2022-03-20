@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
 interface DatabaseManager {
     suspend fun insert(content: String): Boolean
     fun delete(number: Int): Boolean
-    fun modify(number: Int, newContent: String): Boolean
+    suspend fun modify(number: Int, newContent: String): Boolean
     suspend fun getAllLog(): List<LogItem>
 }
 
@@ -31,12 +31,18 @@ class SqliteManager private constructor(context: Context) : DatabaseManager {
     }
 
     override fun delete(number: Int): Boolean = tryExecute {
-        val query = "delete from ${LogTable.TABLE_NAME} where ${LogTable.COLUMN_NAME_NUMBER} = $number"
+        val query = "delete from ${LogTable.TABLE_NAME} where ${LogTable.COLUMN_NAME_NUMBER} = $number;"
         database.execSQL(query)
     }
 
-    override fun modify(number: Int, newContent: String): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun modify(number: Int, newContent: String) = withContext(Dispatchers.IO) {
+        tryExecute {
+            val query = "update ${LogTable.TABLE_NAME} " +
+                    "set ${LogTable.COLUMN_NAME_CONTENT} = '$newContent' " +
+                    "where ${LogTable.COLUMN_NAME_NUMBER} = $number;"
+
+            database.execSQL(query)
+        }
     }
 
     override suspend fun getAllLog() = withContext(Dispatchers.IO) {

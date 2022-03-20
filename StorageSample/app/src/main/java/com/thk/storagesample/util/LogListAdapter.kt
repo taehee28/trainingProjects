@@ -10,11 +10,25 @@ import com.thk.storagesample.model.LogItem
 
 class LogListAdapter : ListAdapter<LogItem, LogListAdapter.LogViewHolder>(LogItemDiffUtil()) {
 
+    var onItemLongClick: ((Int?, String?) -> Unit)? = null
 
     inner class LogViewHolder(private val binding: ItemLogBinding) : RecyclerView.ViewHolder(binding.root) {
+        private var logItem: LogItem? = null
+
+        init {
+            binding.root.setOnLongClickListener {
+                onItemLongClick?.invoke(logItem?.number, logItem?.content)
+                true
+            }
+        }
+
         internal fun bind(item: LogItem) {
-            binding.tvNumber.text = item.number.toString()
-            binding.tvContent.text = item.content
+            logItem = item
+
+            binding.run {
+                tvNumber.text = item.number.toString()
+                tvContent.text = item.content
+            }
         }
     }
 

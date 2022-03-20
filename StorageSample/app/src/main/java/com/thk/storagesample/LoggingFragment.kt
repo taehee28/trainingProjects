@@ -1,21 +1,15 @@
 package com.thk.storagesample
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.thk.storagesample.databinding.FragmentLoggingBinding
-import com.thk.storagesample.model.LogItem
-import com.thk.storagesample.util.DatabaseManager
-import com.thk.storagesample.util.LogListAdapter
-import com.thk.storagesample.util.SqliteManager
-import com.thk.storagesample.util.isNotEmptyOrBlank
-import kotlinx.coroutines.Dispatchers
+import com.thk.storagesample.util.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.lang.IllegalStateException
 
 class LoggingFragment : BaseFragment<FragmentLoggingBinding>() {
@@ -23,6 +17,7 @@ class LoggingFragment : BaseFragment<FragmentLoggingBinding>() {
     private val listAdapter: LogListAdapter by lazy { LogListAdapter() }
     private val databaseManager: DatabaseManager by lazy { SqliteManager.getInstance(requireContext()) }
     private var isModifyMode = false
+    private var currentModifiedNumber = -1
 
     override fun getBinding(
         inflater: LayoutInflater,
@@ -35,11 +30,36 @@ class LoggingFragment : BaseFragment<FragmentLoggingBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.run {
-            logListView.adapter = listAdapter
+            logListView.adapter = listAdapter.apply { onItemLongClick = this@LoggingFragment::showItemMenu }
             btnOk.setOnClickListener { clickOk() }
         }
 
         getAllLog()
+
+    }
+
+    private fun showItemMenu(number: Int?, content: String?) {
+        if (number == null || content == null) return
+
+        AlertDialog.Builder(requireContext())
+            .setItems(arrayOf("수정하기", "삭제하기")) { dialog, which ->
+                when (which) {
+                    0 -> modifyLog(number, content)
+                    1 -> deleteLog(number)
+                }
+            }
+            .show()
+
+    }
+
+    private fun modifyLog(number: Int, content: String) {
+        isModifyMode = true
+
+        currentModifiedNumber = number
+        binding.textField.setText(content)
+    }
+
+    private fun deleteLog(number: Int) {
 
     }
 
@@ -50,8 +70,14 @@ class LoggingFragment : BaseFragment<FragmentLoggingBinding>() {
 
             check(content.isNotEmptyOrBlank()) { "비었음" }
 
-            val isSuccess = databaseManager.insert(content)
-            check(isSuccess) { "insert 실패" }
+            val isSuccess = if (isModifyMode) {
+                isModifyMode = false
+                databaseManager.modify(currentModifiedNumber, content)
+            } else {
+                databaseManager.insert(content)
+            }
+
+            check(isSuccess) { "query 실패" }
 
             val list = databaseManager.getAllLog()
             listAdapter.submitList(list) {
