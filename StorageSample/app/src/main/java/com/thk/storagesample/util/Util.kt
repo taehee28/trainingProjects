@@ -10,5 +10,5 @@ inline fun <reified T> T.logd(message: String) = Log.d(T::class.java.simpleName,
 fun View.navigate(@IdRes actionId: Int) = findNavController().navigate(actionId)
 
 fun String.isNotEmptyOrBlank(): Boolean {
-    return isNotEmpty() and isNotBlank()
+    return trim().isNotEmpty()
 }
