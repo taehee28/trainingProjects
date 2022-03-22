@@ -25,8 +25,10 @@ class SettingSecondFragment : BaseFragment<FragmentSettingSecondBinding>() {
     }
 
     private fun loadUserInfo() {
+        // SharedPreference에서 받은 Triple 객체를 구조분해하여 받음
         val (name, email, age) = requireActivity().getUserInfoPreference().getUserInfo()
 
+        // 화면에 표시
         binding.run {
             tfName.setText(name)
             tfEmail.setText(email)

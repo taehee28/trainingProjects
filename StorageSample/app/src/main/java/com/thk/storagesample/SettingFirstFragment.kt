@@ -11,6 +11,7 @@ import com.thk.storagesample.util.isNotEmptyOrBlank
 import com.thk.storagesample.util.navigate
 import com.thk.storagesample.util.setUserInfo
 import java.lang.IllegalArgumentException
+import java.lang.IllegalStateException
 
 class SettingFirstFragment : BaseFragment<FragmentSettingFirstBinding>() {
 
@@ -32,21 +33,25 @@ class SettingFirstFragment : BaseFragment<FragmentSettingFirstBinding>() {
     }
 
     private fun saveUserInfo() {
+        // 입력된 값들 가져오기
         val rawInfo = getInputFormTextField()
+        // 입력되지 않은 값이 있는지 여부
         val isNotEmpty = rawInfo.toList().all { it.isNotEmptyOrBlank() }
 
         try {
-            require(isNotEmpty)
+            check(isNotEmpty)
 
+            // SharedPreference의 setUserInfo에 넘길 수 있는 Triple 객체 생성
             val userInfo = Triple(rawInfo.first, rawInfo.second, rawInfo.third.toInt())
+            // SharedPreference에 값 쓰기 요청하고 성공 여부 받기
             val result = requireActivity().getUserInfoPreference().setUserInfo(userInfo)
 
-            require(result ?: false)
+            check(result ?: false)
 
             clearTextField()
             Toast.makeText(requireContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show()
             
-        } catch (e: IllegalArgumentException) {
+        } catch (e: IllegalStateException) {
             e.printStackTrace()
             Toast.makeText(requireContext(), "잘못된 입력입니다.", Toast.LENGTH_SHORT).show()
         }
@@ -54,6 +59,9 @@ class SettingFirstFragment : BaseFragment<FragmentSettingFirstBinding>() {
 
     }
 
+    /**
+     * 3개의 TextField로부터 입력된 Text 가져오기
+     */
     private fun getInputFormTextField(): Triple<String, String, String> {
         val name = binding.tfName.text.toString()
         val email = binding.tfEmail.text.toString()

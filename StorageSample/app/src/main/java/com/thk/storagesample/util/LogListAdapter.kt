@@ -16,6 +16,7 @@ class LogListAdapter : ListAdapter<LogItem, LogListAdapter.LogViewHolder>(LogIte
         private var logItem: LogItem? = null
 
         init {
+            // 각 View 길게 누르면 Fragment에서 넘겨준 callback 호출
             binding.root.setOnLongClickListener {
                 onItemLongClick?.invoke(logItem?.number, logItem?.content)
                 true

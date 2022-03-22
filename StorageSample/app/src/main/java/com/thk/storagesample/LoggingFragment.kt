@@ -14,6 +14,7 @@ import java.lang.IllegalStateException
 
 class LoggingFragment : BaseFragment<FragmentLoggingBinding>() {
 
+    // RecyclerView의 어댑터
     private val listAdapter: LogListAdapter by lazy { LogListAdapter() }
 
     // SQLite <-> Room 데이터베이스 변경 
@@ -45,6 +46,9 @@ class LoggingFragment : BaseFragment<FragmentLoggingBinding>() {
 
     }
 
+    /**
+     * Item 길게 눌렀을 때 호출 될 콜백
+     */
     private fun showItemMenu(number: Int?, content: String?) {
         if (number == null || content == null) return
 
@@ -59,6 +63,9 @@ class LoggingFragment : BaseFragment<FragmentLoggingBinding>() {
 
     }
 
+    /**
+     * 수정 모드 진입
+     */
     private fun modifyLog(number: Int, content: String) {
         isModifyMode = true
 
@@ -66,6 +73,9 @@ class LoggingFragment : BaseFragment<FragmentLoggingBinding>() {
         binding.textField.setText(content)
     }
 
+    /**
+     * databaseManager에게 delete 요청하고 목록 다시 불러오기
+     */
     private fun deleteLog(number: Int) = lifecycleScope.launch {
         try {
             val isSuccess = databaseManager.delete(number)
@@ -80,22 +90,28 @@ class LoggingFragment : BaseFragment<FragmentLoggingBinding>() {
 
     }
 
+    /**
+     * databaseManager에게 insert or update 요청하고 목록 다시 불러오기
+     */
     private fun clickOk() = lifecycleScope.launch {
         val content = binding.textField.text.toString()
 
         try {
 
-            check(content.isNotEmptyOrBlank()) { "비었음" }
+            check(content.isNotEmptyOrBlank()) { "입력이 없음" }
 
+            // 현재 수정 중이면 update 요청
             val isSuccess = if (isModifyMode) {
                 isModifyMode = false
                 databaseManager.modify(currentModifiedNumber, content)
-            } else {
+            } else {    // 아니면 insert 요청
                 databaseManager.insert(content)
             }
 
+            // 쿼리 성공 여부 확인
             check(isSuccess) { "query 실패" }
 
+            // 목록 새로 불러오고나서 TextField 비우고 포커스 제거
             getAllLog {
                 binding.textField.run {
                     setText("")
@@ -109,6 +125,11 @@ class LoggingFragment : BaseFragment<FragmentLoggingBinding>() {
         }
     }
 
+    /**
+     * databaseManager에게 모든 목록 select 요청, 화면에 목록 새로고침
+     *
+     * @param block 화면 목록 새로고침이 끝나면 실행할 코드 block
+     */
     private suspend fun getAllLog(block: () -> Unit = {}) {
         val list = databaseManager.getAllLog()
         listAdapter.submitList(list) { block() }
