@@ -23,4 +23,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="File"/>
+
+    <Button
+        android:id="@+id/btn_mediaStore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="media Store"/>
 </LinearLayout>

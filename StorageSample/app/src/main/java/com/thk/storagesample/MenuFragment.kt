@@ -22,6 +22,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>() {
             btnPreference.setOnClickListener { it.navigate(R.id.action_menuFragment_to_settingFirstFragment) }
             btnLogging.setOnClickListener { it.navigate(R.id.action_menuFragment_to_loggingFragment) }
             btnFile.setOnClickListener { it.navigate(R.id.action_menuFragment_to_fileFragment) }
+            btnMediaStore.setOnClickListener { it.navigate(R.id.action_menuFragment_to_mediaStoreFragment) }
         }
     }
 

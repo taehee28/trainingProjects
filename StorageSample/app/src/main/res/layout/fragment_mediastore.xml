@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/iv_photo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        android:background="#abcdef"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:flow_verticalGap="8dp"
+        app:constraint_referenced_ids="btn_loadPic, btn_saveRawPic, btn_saf"
+        app:layout_constraintTop_toBottomOf="@id/iv_photo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <Button
+        android:id="@+id/btn_loadPic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="최근 사진 가져오기"/>
+
+    <Button
+        android:id="@+id/btn_saveRawPic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="save raw file"/>
+
+    <Button
+        android:id="@+id/btn_saf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SAF"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

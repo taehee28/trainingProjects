@@ -25,6 +25,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_menuFragment_to_mediaStoreFragment"
+            app:destination="@id/mediaStoreFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingFirstFragment"
@@ -50,4 +53,8 @@
         android:id="@+id/fileFragment"
         android:name="com.thk.storagesample.FileFragment"
         android:label="FileFragment" />
+    <fragment
+        android:id="@+id/mediaStoreFragment"
+        android:name="com.thk.storagesample.MediaStoreFragment"
+        android:label="MediaStoreFragment" />
 </navigation>
