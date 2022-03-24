@@ -8,7 +8,7 @@
         android:id="@+id/iv_photo"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintDimensionRatio="2:1"
         android:background="#abcdef"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
         android:layout_marginTop="16dp"
         android:orientation="vertical"
         app:flow_verticalGap="8dp"
-        app:constraint_referenced_ids="btn_loadPic, btn_saveRawPic, btn_saf"
+        app:constraint_referenced_ids="btn_loadPic, btn_saveRawPic, btn_openSaf, btn_createFile, btn_removeFile"
         app:layout_constraintTop_toBottomOf="@id/iv_photo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,9 +48,21 @@
         android:text="save raw file"/>
 
     <Button
-        android:id="@+id/btn_saf"
+        android:id="@+id/btn_openSaf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SAF"/>
+        android:text="SAF : open"/>
+
+    <Button
+        android:id="@+id/btn_createFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SAF : create file"/>
+
+    <Button
+        android:id="@+id/btn_removeFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SAF : remove file"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

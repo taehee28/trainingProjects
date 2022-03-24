@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import androidx.core.os.bundleOf
 import com.thk.storagesample.databinding.FragmentMediastoreBinding
 import com.thk.storagesample.util.logd
 import java.io.FileOutputStream
+import java.io.FileWriter
 import java.util.*
 
 class MediaStoreFragment : BaseFragment<FragmentMediastoreBinding>() {
@@ -29,11 +31,32 @@ class MediaStoreFragment : BaseFragment<FragmentMediastoreBinding>() {
         }
     }
 
-    private val launcher = registerForActivityResult(
+    private val imageSelectorLauncher = registerForActivityResult(
         ActivityResultContracts.OpenDocument()
     ) { uri ->
         logd(">> picked uri = $uri")
         uri?.let { binding.ivPhoto.setImageURI(it) }
+    }
+
+    private val createSelectorLauncher = registerForActivityResult(
+        ActivityResultContracts.CreateDocument()
+    ) { uri ->
+        logd(">> created file uri = $uri")
+        uri ?: return@registerForActivityResult
+
+        requireContext().contentResolver.openFileDescriptor(uri, "w").use {
+            FileWriter(it!!.fileDescriptor).use { fileWriter ->
+                fileWriter.write("hello world!")
+            }
+        }
+    }
+
+    private val removeSelectorLauncher = registerForActivityResult(
+        ActivityResultContracts.OpenDocument()
+    ) { uri ->
+        uri?.let {
+            DocumentsContract.deleteDocument(requireContext().contentResolver, uri)
+        }
     }
 
     override fun getBinding(
@@ -58,8 +81,16 @@ class MediaStoreFragment : BaseFragment<FragmentMediastoreBinding>() {
             }
         }
 
-        binding.btnSaf.setOnClickListener {
+        binding.btnOpenSaf.setOnClickListener {
             openSelector()
+        }
+
+        binding.btnCreateFile.setOnClickListener {
+            openSelectorToCreateFile()
+        }
+
+        binding.btnRemoveFile.setOnClickListener {
+            openSelectorToRemoveFile()
         }
 
     }
@@ -149,6 +180,15 @@ class MediaStoreFragment : BaseFragment<FragmentMediastoreBinding>() {
     }
 
     private fun openSelector() {
-        launcher.launch(arrayOf(Intent.ACTION_OPEN_DOCUMENT, "image/*"))
+        imageSelectorLauncher.launch(arrayOf(Intent.ACTION_OPEN_DOCUMENT, "image/*"))
+    }
+
+    private fun openSelectorToCreateFile() {
+        val newFileName = "new_file.txt"
+        createSelectorLauncher.launch(newFileName)
+    }
+
+    private fun openSelectorToRemoveFile() {
+        removeSelectorLauncher.launch(arrayOf(Intent.ACTION_OPEN_DOCUMENT, "text/plain"))
     }
 }
