@@ -2,6 +2,7 @@ package com.thk.storagesample
 
 import android.content.ContentResolver
 import android.content.ContentValues
+import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -28,6 +29,13 @@ class MediaStoreFragment : BaseFragment<FragmentMediastoreBinding>() {
         }
     }
 
+    private val launcher = registerForActivityResult(
+        ActivityResultContracts.OpenDocument()
+    ) { uri ->
+        logd(">> picked uri = $uri")
+        uri?.let { binding.ivPhoto.setImageURI(it) }
+    }
+
     override fun getBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -48,6 +56,10 @@ class MediaStoreFragment : BaseFragment<FragmentMediastoreBinding>() {
             if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.Q) {
                 saveRawImage()
             }
+        }
+
+        binding.btnSaf.setOnClickListener {
+            openSelector()
         }
 
     }
@@ -134,5 +146,9 @@ class MediaStoreFragment : BaseFragment<FragmentMediastoreBinding>() {
         values.clear()
         values.put(MediaStore.Images.Media.IS_PENDING, 0)
         requireContext().contentResolver.update(item, values, null, null)
+    }
+
+    private fun openSelector() {
+        launcher.launch(arrayOf(Intent.ACTION_OPEN_DOCUMENT, "image/*"))
     }
 }
