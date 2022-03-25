@@ -20,10 +20,8 @@ fun FragmentActivity.getUserInfoPreference() = getSharedPreferences(PreferenceKe
 /**
  * SharedPreference에 값 쓰기와 반영을 한번에 하기 위한 확장함수
  *
- * @param userInfo name, email, age가 담긴 Trple 객체
  */
-fun SharedPreferences.setUserInfo(userInfo: Triple<String, String, Int>) = edit()?.run {
-    val (name, email, age) = userInfo
+fun SharedPreferences.setUserInfo(name: String, email: String, age: Int) = edit()?.run {
     putString(PreferenceKey.KEY_USER_NAME, name)
     putString(PreferenceKey.KEY_USER_EMAIL, email)
     putInt(PreferenceKey.KEY_USER_AGE, age)

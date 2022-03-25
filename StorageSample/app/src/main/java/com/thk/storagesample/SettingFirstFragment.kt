@@ -10,7 +10,6 @@ import com.thk.storagesample.util.getUserInfoPreference
 import com.thk.storagesample.util.isNotEmptyOrBlank
 import com.thk.storagesample.util.navigate
 import com.thk.storagesample.util.setUserInfo
-import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
 
 class SettingFirstFragment : BaseFragment<FragmentSettingFirstBinding>() {
@@ -34,17 +33,15 @@ class SettingFirstFragment : BaseFragment<FragmentSettingFirstBinding>() {
 
     private fun saveUserInfo() {
         // 입력된 값들 가져오기
-        val rawInfo = getInputFormTextField()
+        val inputInfo = getInputFormTextField()
         // 입력되지 않은 값이 있는지 여부
-        val isNotEmpty = rawInfo.toList().all { it.isNotEmptyOrBlank() }
+        val isNotEmpty = inputInfo.toList().all { it.isNotEmptyOrBlank() }
 
         try {
             check(isNotEmpty)
 
-            // SharedPreference의 setUserInfo에 넘길 수 있는 Triple 객체 생성
-            val userInfo = Triple(rawInfo.first, rawInfo.second, rawInfo.third.toInt())
             // SharedPreference에 값 쓰기 요청하고 성공 여부 받기
-            val result = requireActivity().getUserInfoPreference().setUserInfo(userInfo)
+            val result = requireActivity().getUserInfoPreference().setUserInfo(inputInfo.first, inputInfo.second, inputInfo.third.toInt())
 
             check(result ?: false)
 
