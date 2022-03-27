@@ -31,6 +31,7 @@ class PopularMoviesFragment : BaseFragment<FragmentMoviePopularBinding>() {
             }
 
             binding.viewPager.adapter = ViewPagerAdapter(response.results.slice(0..9))
+            binding.indicator.setViewPager2(binding.viewPager)
         }
     }
 }
