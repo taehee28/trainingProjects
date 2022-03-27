@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/popularMoviesFragment"
-        android:name="com.thk.movieranking.PopularMoviesFragment"
+        android:name="com.thk.movieranking.MovieSlideFragment"
         android:label="PopularMoviesFragment" />
 </navigation>

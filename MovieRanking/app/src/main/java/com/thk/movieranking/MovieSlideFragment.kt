@@ -6,19 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.thk.movieranking.adapters.ViewPagerAdapter
-import com.thk.movieranking.databinding.FragmentMoviePopularBinding
+import com.thk.movieranking.databinding.FragmentMovieSlideBinding
 import com.thk.movieranking.network.MovieApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class PopularMoviesFragment : BaseFragment<FragmentMoviePopularBinding>() {
+class MovieSlideFragment : BaseFragment<FragmentMovieSlideBinding>() {
 
     override fun getBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentMoviePopularBinding {
-        return FragmentMoviePopularBinding.inflate(inflater, container, false)
+    ): FragmentMovieSlideBinding {
+        return FragmentMovieSlideBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,7 +27,7 @@ class PopularMoviesFragment : BaseFragment<FragmentMoviePopularBinding>() {
 
         lifecycleScope.launch {
             val response = withContext(Dispatchers.IO) {
-                MovieApiService.api.getPopularMovies()
+                MovieApiService.api.getNowPlayingMovies()
             }
 
             binding.viewPager.adapter = ViewPagerAdapter(response.results.slice(0..9))

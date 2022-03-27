@@ -15,4 +15,12 @@ interface MovieApiInterface {
         @Query("language") language: String = "ko-KR",
         @Query("region") region: String = "KR"
     ): MovieListResponse
+
+    @GET("movie/now_playing")
+    suspend fun getNowPlayingMovies(
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
+        @Query("page") page: Int = 1,
+        @Query("language") language: String = "ko-KR",
+        @Query("region") region: String = "KR"
+    ): MovieListResponse
 }
