@@ -14,5 +14,5 @@ interface MovieApiInterface {
         @Query("page") page: Int = 1,
         @Query("language") language: String = "ko-KR",
         @Query("region") region: String = "KR"
-    ): Call<MovieListResponse>
+    ): MovieListResponse
 }

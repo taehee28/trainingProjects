@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.4288949275362319" />
         <entry key="app/src/main/res/layout/fragment_movie_popular.xml" value="0.21557971014492755" />
+        <entry key="app/src/main/res/layout/item_movie_card.xml" value="0.125" />
       </map>
     </option>
   </component>
@@ -13,5 +14,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.21557971014492755" />
+      </ProjectState>
+    </option>
   </component>
 </project>
