@@ -10,9 +10,21 @@ import com.thk.movieranking.utils.GlideApp
 
 class ViewPagerAdapter(var items: List<Movie>) : RecyclerView.Adapter<ViewPagerAdapter.CardViewHolder>() {
 
+    var onViewClick: ((Int) -> Unit)? = null
+
     inner class CardViewHolder(val binding: ItemMovieCardBinding) : RecyclerView.ViewHolder(binding.root) {
+        private var movieId: Int? = null
+
+        init {
+            binding.run {
+                ivPoster.setOnClickListener { onViewClick?.invoke(movieId ?: -1) }
+                tvTitle.setOnClickListener { onViewClick?.invoke(movieId ?: -1) }
+            }
+        }
 
         fun bind(item: Movie) {
+            movieId = item.id
+
             binding.tvTitle.text = item.title
 
             GlideApp.with(binding.ivPoster)

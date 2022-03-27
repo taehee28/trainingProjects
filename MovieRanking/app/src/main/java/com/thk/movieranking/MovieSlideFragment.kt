@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import com.thk.movieranking.adapters.ViewPagerAdapter
 import com.thk.movieranking.databinding.FragmentMovieSlideBinding
 import com.thk.movieranking.network.MovieApiService
@@ -30,7 +32,12 @@ class MovieSlideFragment : BaseFragment<FragmentMovieSlideBinding>() {
                 MovieApiService.api.getNowPlayingMovies()
             }
 
-            binding.viewPager.adapter = ViewPagerAdapter(response.results.slice(0..9))
+            binding.viewPager.adapter = ViewPagerAdapter(response.results.slice(0..9)).apply {
+                onViewClick = { id ->
+                    val action = MovieSlideFragmentDirections.actionMovieSlideFragmentToMovieDetailFragment(id)
+                    binding.root.findNavController().navigate(action)
+                }
+            }
             binding.indicator.setViewPager2(binding.viewPager)
         }
     }
