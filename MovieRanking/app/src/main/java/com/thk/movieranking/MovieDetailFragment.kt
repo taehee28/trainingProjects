@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.thk.movieranking.databinding.FragmentMovieDetailBinding
 import com.thk.movieranking.network.MovieApiService
 import com.thk.movieranking.utils.GlideApp
@@ -33,6 +36,12 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
             val movieDetail = MovieApiService.api.getMovieDetail(movieId)
             logd(movieDetail.toString())
 
+            val videoId = if (movieDetail.hasVideo) {
+                MovieApiService.api.getMovieVideoInfo(movieId).key
+            } else {
+                null
+            }
+
             withContext(Dispatchers.Main) {
                 GlideApp.with(binding.ivPoster)
                     .load(TMDB_IMAGE_URL + movieDetail.posterPath)
@@ -44,6 +53,16 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
                     tvReleaseDate.text = movieDetail.releaseDate + " 개봉"
                     tvRuntime.text = String.format("%d분", movieDetail.runtime)
                     tvOverview.text = movieDetail.overview ?: ""
+
+                    videoId?.let {
+                        youtubePlayer.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
+                            override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
+                                youTubePlayer.loadVideo(it, 0f)
+                            }
+                        })
+                    } ?: kotlin.run {
+                        youtubePlayer.visibility = View.GONE
+                    }
                 }
             }
         }

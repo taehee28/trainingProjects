@@ -17,10 +17,17 @@ data class Movie(
     val releaseDate: String,
     val runtime: Int,
     val genres: List<Genre>,
-    val overview: String?
+    val overview: String?,
+    @SerializedName("video")
+    val hasVideo: Boolean
 )
 
 data class Genre(
     val id: Int,
     val name: String
+)
+
+data class Video(
+    val site: String,
+    val key: String
 )

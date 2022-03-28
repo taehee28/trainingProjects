@@ -3,6 +3,7 @@ package com.thk.movieranking.network
 import com.thk.movieranking.BuildConfig
 import com.thk.movieranking.models.Movie
 import com.thk.movieranking.models.MovieListResponse
+import com.thk.movieranking.models.Video
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.GET
@@ -32,4 +33,10 @@ interface MovieApiInterface {
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
         @Query("language") language: String = "ko-KR"
     ) : Movie
+
+    @GET("movie/{movie_id}/videos")
+    suspend fun getMovieVideoInfo(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY
+    ) : Video
 }
