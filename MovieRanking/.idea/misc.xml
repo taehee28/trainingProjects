@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/KANG/AndroidStudioProjects/trainingProjects/MovieRanking/app/src/main/res/layout/fragment_movie_detail.xml" value="0.34791666666666665" />
+        <entry key="..\:/Users/KANG/AndroidStudioProjects/trainingProjects/MovieRanking/app/src/main/res/layout/item_movie_card.xml" value="0.34791666666666665" />
+        <entry key="..\:/Users/KANG/AndroidStudioProjects/trainingProjects/MovieRanking/app/src/main/res/layout/item_progressbar_circular.xml" value="0.34791666666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_movie_detail.xml" value="0.48143115942028986" />
         <entry key="app/src/main/res/layout/fragment_movie_popular.xml" value="0.21557971014492755" />
