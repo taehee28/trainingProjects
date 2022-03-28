@@ -32,6 +32,10 @@ class ViewPagerAdapter(var items: List<Movie>) : RecyclerView.Adapter<ViewPagerA
                 .fitCenter()
                 .into(binding.ivPoster)
         }
+
+        fun clearImage() {
+            GlideApp.with(binding.ivPoster).clear(binding.ivPoster)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
@@ -41,6 +45,11 @@ class ViewPagerAdapter(var items: List<Movie>) : RecyclerView.Adapter<ViewPagerA
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         holder.bind(item = items[position])
+    }
+
+    override fun onViewRecycled(holder: CardViewHolder) {
+        holder.clearImage()
+        super.onViewRecycled(holder)
     }
 
     override fun getItemCount() = items.size
