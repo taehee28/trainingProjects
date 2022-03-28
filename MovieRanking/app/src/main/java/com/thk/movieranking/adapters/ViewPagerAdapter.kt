@@ -3,6 +3,7 @@ package com.thk.movieranking.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.thk.movieranking.TMDB_IMAGE_URL
 import com.thk.movieranking.databinding.ItemMovieCardBinding
 import com.thk.movieranking.models.Movie
@@ -12,8 +13,12 @@ class ViewPagerAdapter(var items: List<Movie>) : RecyclerView.Adapter<ViewPagerA
 
     var onViewClick: ((Int) -> Unit)? = null
 
-    inner class CardViewHolder(val binding: ItemMovieCardBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class CardViewHolder(private val binding: ItemMovieCardBinding) : RecyclerView.ViewHolder(binding.root) {
         private var movieId: Int? = null
+        private val circularIndicator = CircularProgressDrawable(binding.root.context).apply {
+            centerRadius = 30f
+            start()
+        }
 
         init {
             binding.run {
@@ -30,6 +35,7 @@ class ViewPagerAdapter(var items: List<Movie>) : RecyclerView.Adapter<ViewPagerA
             GlideApp.with(binding.ivPoster)
                 .load(TMDB_IMAGE_URL + item.poster_path)
                 .fitCenter()
+                .placeholder(circularIndicator)
                 .into(binding.ivPoster)
         }
 

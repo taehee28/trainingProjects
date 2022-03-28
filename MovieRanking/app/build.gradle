@@ -68,4 +68,6 @@ dependencies {
 
     // indicator 
     implementation 'com.tbuonomo:dotsindicator:4.2'
+
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }
