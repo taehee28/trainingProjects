@@ -35,8 +35,16 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
 
             withContext(Dispatchers.Main) {
                 GlideApp.with(binding.ivPoster)
-                    .load(TMDB_IMAGE_URL + movieDetail.poster_path)
+                    .load(TMDB_IMAGE_URL + movieDetail.posterPath)
                     .into(binding.ivPoster)
+
+                binding.run {
+                    toolbar.title = movieDetail.title
+                    tvGenre.text = movieDetail.genres.joinToString(separator = ", ") { it.name }
+                    tvReleaseDate.text = movieDetail.releaseDate + " 개봉"
+                    tvRuntime.text = String.format("%d분", movieDetail.runtime)
+                    tvOverview.text = movieDetail.overview ?: ""
+                }
             }
         }
     }

@@ -33,7 +33,7 @@ class ViewPagerAdapter(var items: List<Movie>) : RecyclerView.Adapter<ViewPagerA
             binding.tvTitle.text = item.title
 
             GlideApp.with(binding.ivPoster)
-                .load(TMDB_IMAGE_URL + item.poster_path)
+                .load(TMDB_IMAGE_URL + item.posterPath)
                 .fitCenter()
                 .placeholder(circularIndicator)
                 .into(binding.ivPoster)
