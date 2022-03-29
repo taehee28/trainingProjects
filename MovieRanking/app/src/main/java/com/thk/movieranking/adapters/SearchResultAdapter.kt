@@ -12,9 +12,20 @@ import com.thk.movieranking.utils.GlideApp
 
 class SearchResultAdapter : ListAdapter<Movie, SearchResultAdapter.SearchResultViewHolder>(SearchResultDiff()) {
 
+    var onViewClick: ((Int) -> Unit)? = null
+
     inner class SearchResultViewHolder(private val binding: ItemSearchRowBinding) : RecyclerView.ViewHolder(binding.root) {
+        private var movieId: Int? = null
+
+        init {
+            binding.root.setOnClickListener {
+                onViewClick?.invoke(movieId ?: -1)
+            }
+        }
 
         fun bind(item: Movie) {
+            movieId = item.id
+
             item.posterPath?.let {
                 GlideApp.with(binding.ivPoster)
                     .load(TMDB_IMAGE_URL + it)

@@ -28,7 +28,15 @@
     <fragment
         android:id="@+id/movieSearchFragment"
         android:name="com.thk.movieranking.MovieSearchFragment"
-        android:label="MovieSearchFragment" />
+        android:label="MovieSearchFragment" >
+        <action
+            android:id="@+id/action_movieSearchFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
     <fragment
         android:id="@+id/movieRatedFragment"
         android:name="com.thk.movieranking.MovieRatedFragment"
