@@ -25,4 +25,12 @@
             app:argType="integer"
             android:defaultValue="-1" />
     </fragment>
+    <fragment
+        android:id="@+id/movieSearchFragment"
+        android:name="com.thk.movieranking.MovieSearchFragment"
+        android:label="MovieSearchFragment" />
+    <fragment
+        android:id="@+id/movieRatedFragment"
+        android:name="com.thk.movieranking.MovieRatedFragment"
+        android:label="MovieRatedFragment" />
 </navigation>
