@@ -41,6 +41,8 @@ class MovieSearchFragment : BaseFragment<FragmentMovieSearchBinding>() {
             if (input.isEmpty()) return@setOnClickListener
 
             search(input)
+
+            binding.textField.clearFocus()
         }
     }
 
