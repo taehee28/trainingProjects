@@ -1,14 +1,10 @@
 package com.thk.movieranking.network
 
 import com.thk.movieranking.BuildConfig
-import com.thk.movieranking.models.Movie
-import com.thk.movieranking.models.MovieListResponse
-import com.thk.movieranking.models.Video
+import com.thk.movieranking.models.*
 import org.json.JSONObject
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface MovieApiInterface {
     @GET("movie/popular")
@@ -47,5 +43,19 @@ interface MovieApiInterface {
         @Query("page") page: Int = 1,
         @Query("language") language: String = "ko-KR",
         @Query("region") region: String = "KR"
-        ) : MovieListResponse
+    ) : MovieListResponse
+
+    @GET("authentication/guest_session/new")
+    suspend fun getGuestSessionId(
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY
+    ) : SessionInfo
+
+    @Headers("Content-Type:application/json;charset=utf-8")
+    @POST("movie/{movie_id}/rating")
+    suspend fun ratingMovie(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
+        @Query("guest_session_id") guestSessionId: String,
+        @Body value: RatingValue
+    ) : RequestResponse
 }

@@ -31,3 +31,22 @@ data class Video(
     val site: String,
     val key: String
 )
+
+data class SessionInfo(
+    val success: Boolean,
+    @SerializedName("guest_session_id")
+    val guestSessionId: String,
+    @SerializedName("expires_at")
+    val expiresAt: String
+)
+
+data class RatingValue(
+    val value: Double
+)
+
+data class RequestResponse(
+    @SerializedName("status_code")
+    val statusCode: Int,
+    @SerializedName("status_message")
+    val statusMessage: String
+)
