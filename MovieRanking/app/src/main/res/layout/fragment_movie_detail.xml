@@ -47,7 +47,6 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:titleTextColor="@color/white"
-                app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
                 app:contentInsetStartWithNavigation="0dp"
                 app:contentInsetEnd="24dp"
                 />

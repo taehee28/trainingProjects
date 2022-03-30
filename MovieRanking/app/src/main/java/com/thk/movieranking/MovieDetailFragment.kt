@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
 import com.thk.movieranking.databinding.DialogRatingBinding
@@ -36,6 +39,8 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupToolbar()
 
         getMovieDetailFromServer(movieId)
 
@@ -81,6 +86,12 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
                 }
             }
         }
+    }
+
+    private fun setupToolbar() {
+        val navController = findNavController()
+        val appBarConfig = AppBarConfiguration(navController.graph)
+        binding.toolbar.setupWithNavController(navController, appBarConfig)
     }
 
     private fun showRatingDialog() {
