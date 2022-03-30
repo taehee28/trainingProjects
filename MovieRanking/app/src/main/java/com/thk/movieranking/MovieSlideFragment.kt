@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.thk.movieranking.adapters.ViewPagerAdapter
 import com.thk.movieranking.databinding.FragmentMovieSlideBinding
 import com.thk.movieranking.network.MovieApiService
@@ -20,7 +21,7 @@ class MovieSlideFragment : BaseFragment<FragmentMovieSlideBinding>() {
         ViewPagerAdapter().apply {
             onViewClick = { id ->
                 val action = MovieSlideFragmentDirections.actionMovieSlideFragmentToMovieDetailFragment(id)
-                binding.root.findNavController().navigate(action)
+                findNavController().navigate(action)
             }
         }
     }

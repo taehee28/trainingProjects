@@ -23,7 +23,7 @@ class MovieRatedFragment : BaseFragment<FragmentMovieRatedBinding>() {
         RatedListAdapter().apply {
             onViewClick = { id ->
                 val action = MovieRatedFragmentDirections.actionMovieRatedFragmentToMovieDetailFragment(id)
-                binding.root.findNavController().navigate(action)
+                findNavController().navigate(action)
             }
         }
     }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
 import com.thk.movieranking.adapters.SearchResultAdapter
@@ -18,7 +19,7 @@ class MovieSearchFragment : BaseFragment<FragmentMovieSearchBinding>() {
         SearchResultAdapter().apply {
             onViewClick = { id ->
                 val action = MovieSearchFragmentDirections.actionMovieSearchFragmentToMovieDetailFragment(id)
-                binding.root.findNavController().navigate(action)
+                findNavController().navigate(action)
             }
         }
     }
