@@ -100,11 +100,8 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
             .show()
     }
 
-    private fun sendRatingToServer(ratingValue: Int) = CoroutineScope(Dispatchers.Main).launch {
-        // TODO: 세션 아이디 바뀌는거 해결하기  
-        val sessionId = getSessionId()
-        logd(sessionId ?: "null")
-        check(!sessionId.isNullOrEmpty()) { "sessionId가 없음" }
+    private fun sendRatingToServer(ratingValue: Int) = CoroutineScope(Dispatchers.IO).launch {
+        val sessionId = requireActivity().getSessionPreference().getSessionId() ?: return@launch
 
         val result = MovieApiService.api.ratingMovie(guestSessionId = sessionId, movieId = movieId, value = RatingValue(ratingValue.toDouble()))
         logd(result.toString())
