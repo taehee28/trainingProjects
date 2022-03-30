@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/iv_poster"
+        android:layout_width="70dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="3:4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="?attr/textAppearanceHeadline5"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="end"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_poster"
+        app:layout_constraintEnd_toStartOf="@id/tv_rateValue"
+        />
+
+    <TextView
+        android:id="@+id/tv_rateValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceHeadline4"
+        android:textColor="@color/red_dark"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_rateUnitLabel"/>
+
+    <TextView
+        android:id="@+id/tv_rateUnitLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?attr/textAppearanceHeadline6"
+        android:text=" 점"
+
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_rateValue"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,7 +19,9 @@ data class Movie(
     val genres: List<Genre>,
     val overview: String?,
     @SerializedName("video")
-    val hasVideo: Boolean
+    val hasVideo: Boolean,
+
+    val rating: Int
 )
 
 data class Genre(

@@ -58,4 +58,12 @@ interface MovieApiInterface {
         @Query("guest_session_id") guestSessionId: String,
         @Body value: RatingValue
     ) : RequestResponse
+
+    @GET("guest_session/{guest_session_id}/rated/movies")
+    suspend fun getRatedMovies(
+        @Path("guest_session_id") sessionId: String,
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
+        @Query("language") language: String = "ko-KR",
+        @Query("sort_by") sortBy: String = "created_at.desc"
+    ) : MovieListResponse
 }
