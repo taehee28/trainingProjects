@@ -16,6 +16,15 @@ import kotlinx.coroutines.withContext
 
 class MovieSlideFragment : BaseFragment<FragmentMovieSlideBinding>() {
 
+    private val viewPagerAdapter: ViewPagerAdapter by lazy {
+        ViewPagerAdapter().apply {
+            onViewClick = { id ->
+                val action = MovieSlideFragmentDirections.actionMovieSlideFragmentToMovieDetailFragment(id)
+                binding.root.findNavController().navigate(action)
+            }
+        }
+    }
+
     override fun getBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -26,19 +35,16 @@ class MovieSlideFragment : BaseFragment<FragmentMovieSlideBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.viewPager.adapter = viewPagerAdapter
+        binding.indicator.setViewPager2(binding.viewPager)
 
         lifecycleScope.launch {
             val response = withContext(Dispatchers.IO) {
                 MovieApiService.api.getNowPlayingMovies()
             }
 
-            binding.viewPager.adapter = ViewPagerAdapter(response.results.slice(0..9)).apply {
-                onViewClick = { id ->
-                    val action = MovieSlideFragmentDirections.actionMovieSlideFragmentToMovieDetailFragment(id)
-                    binding.root.findNavController().navigate(action)
-                }
-            }
-            binding.indicator.setViewPager2(binding.viewPager)
+            viewPagerAdapter.items = response.results.slice(0..9)
+            viewPagerAdapter.notifyDataSetChanged()
         }
     }
 }

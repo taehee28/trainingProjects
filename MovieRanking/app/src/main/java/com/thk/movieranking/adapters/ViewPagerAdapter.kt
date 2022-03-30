@@ -9,9 +9,11 @@ import com.thk.movieranking.databinding.ItemMovieCardBinding
 import com.thk.movieranking.models.Movie
 import com.thk.movieranking.utils.GlideApp
 
-class ViewPagerAdapter(var items: List<Movie>) : RecyclerView.Adapter<ViewPagerAdapter.CardViewHolder>() {
+class ViewPagerAdapter : RecyclerView.Adapter<ViewPagerAdapter.CardViewHolder>() {
 
     var onViewClick: ((Int) -> Unit)? = null
+
+    var items: List<Movie>? = null
 
     inner class CardViewHolder(private val binding: ItemMovieCardBinding) : RecyclerView.ViewHolder(binding.root) {
         private var movieId: Int? = null
@@ -50,7 +52,7 @@ class ViewPagerAdapter(var items: List<Movie>) : RecyclerView.Adapter<ViewPagerA
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-        holder.bind(item = items[position])
+        holder.bind(item = items?.get(position)!!)
     }
 
     override fun onViewRecycled(holder: CardViewHolder) {
@@ -58,5 +60,5 @@ class ViewPagerAdapter(var items: List<Movie>) : RecyclerView.Adapter<ViewPagerA
         super.onViewRecycled(holder)
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount() = items?.size ?: 0
 }
