@@ -66,4 +66,11 @@ interface MovieApiInterface {
         @Query("language") language: String = "ko-KR",
         @Query("sort_by") sortBy: String = "created_at.desc"
     ) : MovieListResponse
+
+    @DELETE("movie/{movie_id}/rating")
+    suspend fun deleteRating(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
+        @Query("guest_session_id") guestSessionId: String,
+    ) : RequestResponse
 }

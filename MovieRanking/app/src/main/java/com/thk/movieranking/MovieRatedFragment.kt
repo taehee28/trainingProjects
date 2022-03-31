@@ -1,5 +1,6 @@
 package com.thk.movieranking
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,9 @@ class MovieRatedFragment : BaseFragment<FragmentMovieRatedBinding>() {
                 val action = MovieRatedFragmentDirections.actionMovieRatedFragmentToMovieDetailFragment(id)
                 findNavController().navigate(action)
             }
+            onViewLongClick = { id ->
+                showDeleteDialog(id)
+            }
         }
     }
 
@@ -44,6 +48,26 @@ class MovieRatedFragment : BaseFragment<FragmentMovieRatedBinding>() {
         }
 
         getRatedList()
+    }
+
+    private fun showDeleteDialog(movieId: Int) {
+        AlertDialog.Builder(requireContext())
+            .setItems(arrayOf("평가 삭제하기")) { dialogInterface, posistion ->
+                deleteRating(movieId)
+            }
+            .show()
+    }
+
+    private fun deleteRating(movieId: Int) = CoroutineScope(Dispatchers.IO).launch {
+        requireActivity().getSessionPreference().getSessionId()?.let {
+            val result = MovieApiService.api.deleteRating(movieId = movieId, guestSessionId = it)
+
+            if (result.statusCode == 13) {
+                getRatedList()
+            } else {
+                logd(result.toString())
+            }
+        }
     }
 
     private fun getRatedList() = CoroutineScope(Dispatchers.IO).launch {

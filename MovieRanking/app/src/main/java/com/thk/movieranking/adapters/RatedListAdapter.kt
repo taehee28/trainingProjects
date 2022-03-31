@@ -12,13 +12,20 @@ import com.thk.movieranking.utils.GlideApp
 
 class RatedListAdapter : ListAdapter<Movie, RatedListAdapter.RatedMovieViewHolder>(RatedListDiff()) {
     var onViewClick: ((Int) -> Unit)? = null
+    var onViewLongClick: ((Int) -> Unit)? = null
 
     inner class RatedMovieViewHolder(private val binding: ItemRatedRowBinding) : RecyclerView.ViewHolder(binding.root) {
         var movieId: Int? = null
 
         init {
-            binding.root.setOnClickListener {
-                onViewClick?.invoke(movieId ?: -1)
+            binding.root.run {
+                setOnClickListener {
+                    onViewClick?.invoke(movieId ?: -1)
+                }
+                setOnLongClickListener {
+                    onViewLongClick?.invoke(movieId ?: -1)
+                    true
+                }
             }
         }
 
