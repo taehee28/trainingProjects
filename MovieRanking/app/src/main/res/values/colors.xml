@@ -8,14 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     
-    <color name="indicator_not_selected">#A6A6A6</color>
-
-    <color name="grey_100">#f5f5f5</color>
-    <color name="grey_dark">#c2c2c2</color>
-    <color name="grey_light">#fff</color>
-    <color name="red_900">#b71c1c</color>
-    <color name="red_dark">#7f0000</color>
-    <color name="red_light">#f05545</color>
-
-    <color name="grey_900">#212121</color>
+    <color name="indicator_not_selected">#999999</color>
 </resources>
