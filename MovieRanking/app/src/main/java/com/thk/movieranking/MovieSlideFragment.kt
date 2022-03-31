@@ -40,6 +40,7 @@ class MovieSlideFragment : BaseFragment<FragmentMovieSlideBinding>() {
         binding.indicator.setViewPager2(binding.viewPager)
 
         lifecycleScope.launch {
+            // 현재 상영 중인 영화 목록 가져오기
             val response = withContext(Dispatchers.IO) {
                 MovieApiService.api.getNowPlayingMovies()
             }

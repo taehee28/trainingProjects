@@ -15,7 +15,6 @@ import com.thk.movieranking.databinding.DialogRatingBinding
 import com.thk.movieranking.databinding.FragmentMovieDetailBinding
 import com.thk.movieranking.models.RatingValue
 import com.thk.movieranking.network.MovieApiService
-import com.thk.movieranking.network.getSessionId
 import com.thk.movieranking.utils.GlideApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,9 +48,11 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
         if (movieId == -1) return
 
         lifecycleScope.launch(Dispatchers.IO) {
+            // api 요청의 결과를 콜백 없이 바로 데이터 클래스의 인스턴스로 받음
             val movieDetail = MovieApiService.api.getMovieDetail(movieId)
             logd(movieDetail.toString())
 
+            // UI 업데이트
             withContext(Dispatchers.Main) {
                 GlideApp.with(binding.ivPoster)
                     .load(TMDB_IMAGE_URL + movieDetail.posterPath)
@@ -94,6 +95,7 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
     private fun sendRatingToServer(ratingValue: Int) = CoroutineScope(Dispatchers.IO).launch {
         val sessionId = requireActivity().getSessionPreference().getSessionId() ?: return@launch
 
+        // 영화에 평점 매기기 위한 POST 요청
         val result = MovieApiService.api.ratingMovie(guestSessionId = sessionId, movieId = movieId, value = RatingValue(ratingValue.toDouble()))
         logd(result.toString())
     }
