@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -13,6 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.thk.movieranking.databinding.DialogRatingBinding
 import com.thk.movieranking.databinding.FragmentMovieDetailBinding
+import com.thk.movieranking.models.Movie
 import com.thk.movieranking.models.RatingValue
 import com.thk.movieranking.network.MovieApiService
 import com.thk.movieranking.utils.GlideApp
@@ -45,27 +47,30 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
     }
 
     private fun getMovieDetailFromServer(movieId: Int) {
-        if (movieId == -1) return
+        if (movieId == -1) {
+            Toast.makeText(requireContext(), "movie id = -1", Toast.LENGTH_SHORT).show()
+            return
+        }
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            // api 요청의 결과를 콜백 없이 바로 데이터 클래스의 인스턴스로 받음
+        networkCoroutine {
+            // 영화 상세 정보 가져오기
             val movieDetail = MovieApiService.api.getMovieDetail(movieId)
-            logd(movieDetail.toString())
 
-            // UI 업데이트
-            withContext(Dispatchers.Main) {
-                GlideApp.with(binding.ivPoster)
-                    .load(TMDB_IMAGE_URL + movieDetail.posterPath)
-                    .into(binding.ivPoster)
+            updateUi(movieDetail)
+        }
+    }
 
-                binding.run {
-                    toolbar.title = movieDetail.title
-                    tvGenre.text = movieDetail.genres.joinToString(separator = ", ") { it.name }
-                    tvReleaseDate.text = movieDetail.releaseDate + " 개봉"
-                    tvRuntime.text = String.format("%d분", movieDetail.runtime)
-                    tvOverview.text = movieDetail.overview ?: ""
-                }
-            }
+    private suspend fun updateUi(movieDetail: Movie) = withContext(Dispatchers.Main) {
+        GlideApp.with(binding.ivPoster)
+            .load(TMDB_IMAGE_URL + movieDetail.posterPath)
+            .into(binding.ivPoster)
+
+        binding.run {
+            toolbar.title = movieDetail.title
+            tvGenre.text = movieDetail.genres.joinToString(separator = ", ") { it.name }
+            tvReleaseDate.text = movieDetail.releaseDate + " 개봉"
+            tvRuntime.text = String.format("%d분", movieDetail.runtime)
+            tvOverview.text = movieDetail.overview ?: ""
         }
     }
 

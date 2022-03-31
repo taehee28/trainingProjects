@@ -58,7 +58,7 @@ class MovieRatedFragment : BaseFragment<FragmentMovieRatedBinding>() {
             .show()
     }
 
-    private fun deleteRating(movieId: Int) = CoroutineScope(Dispatchers.IO).launch {
+    private fun deleteRating(movieId: Int) = networkCoroutine {
         requireActivity().getSessionPreference().getSessionId()?.let {
             // 영화에 매긴 평점 지우기 위한 DELETE 요청
             val result = MovieApiService.api.deleteRating(movieId = movieId, guestSessionId = it)
@@ -71,7 +71,7 @@ class MovieRatedFragment : BaseFragment<FragmentMovieRatedBinding>() {
         }
     }
 
-    private fun getRatedList() = CoroutineScope(Dispatchers.IO).launch {
+    private fun getRatedList() = networkCoroutine {
         requireActivity().getSessionPreference().getSessionId()?.let {
             // 평점 매긴 영화 목록 가져오기
             val result = MovieApiService.api.getRatedMovies(it)

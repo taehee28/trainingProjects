@@ -12,6 +12,7 @@ import com.thk.movieranking.adapters.ViewPagerAdapter
 import com.thk.movieranking.databinding.FragmentMovieSlideBinding
 import com.thk.movieranking.models.MovieListResponse
 import com.thk.movieranking.network.MovieApiService
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -43,13 +44,14 @@ class MovieSlideFragment : BaseFragment<FragmentMovieSlideBinding>() {
         binding.viewPager.adapter = viewPagerAdapter
         binding.indicator.setViewPager2(binding.viewPager)
 
-        lifecycleScope.launch {
-            // 현재 상영 중인 영화 목록 가져오기
-            val response = withContext(Dispatchers.IO) {
-                MovieApiService.api.getNowPlayingMovies()
-            }
+        getNowPlayingMovies()
+    }
 
-            viewPagerAdapter.items = response.results.slice(0..9)
+    private fun getNowPlayingMovies() = networkCoroutine {
+        val response = MovieApiService.api.getNowPlayingMovies()
+
+        viewPagerAdapter.items = response.results.slice(0..9)
+        withContext(Dispatchers.Main) {
             viewPagerAdapter.notifyDataSetChanged()
         }
     }

@@ -47,15 +47,13 @@ class MovieSearchFragment : BaseFragment<FragmentMovieSearchBinding>() {
         }
     }
 
-    private fun search(text: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            // 키워드를 넘겨서 키워드에 맞는 영화 목록 가져오기
-            val result = MovieApiService.api.searchMovie(queryText = text)
-            logd(result.results.toString())
+    private fun search(text: String) = networkCoroutine {
+        // 키워드를 넘겨서 키워드에 맞는 영화 목록 가져오기
+        val result = MovieApiService.api.searchMovie(queryText = text)
+        logd(result.results.toString())
 
-            withContext(Dispatchers.Main) {
-                listAdapter.submitList(result.results)
-            }
+        withContext(Dispatchers.Main) {
+            listAdapter.submitList(result.results)
         }
     }
 }

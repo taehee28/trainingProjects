@@ -29,8 +29,11 @@ class MainActivity : AppCompatActivity() {
         findViewById<BottomNavigationView>(R.id.bottom_navigation).setupWithNavController(navController)
     }
 
+    /**
+     * 기기에 세션 아이디 저장되어 있는지 체크하고, 없으면 api 호출해서 받아옴
+     */
     private fun checkSessionId() {
-        getSessionPreference().getSessionId() ?: CoroutineScope(Dispatchers.IO).launch {
+        getSessionPreference().getSessionId() ?: networkCoroutine {
             val result = MovieApiService.api.getGuestSessionId()
             logd(result.toString())
 
