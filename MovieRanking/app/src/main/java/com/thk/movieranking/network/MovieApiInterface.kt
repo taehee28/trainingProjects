@@ -8,12 +8,12 @@ import retrofit2.http.*
 
 interface MovieApiInterface {
     @GET("movie/popular")
-    suspend fun getPopularMovies(
+    fun getPopularMovies(
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
         @Query("page") page: Int = 1,
         @Query("language") language: String = "ko-KR",
         @Query("region") region: String = "KR"
-    ): MovieListResponse
+    ): Call<MovieListResponse>
 
     /**
      * 현재 상영 중인 영화의 목록 가져오기

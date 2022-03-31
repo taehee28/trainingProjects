@@ -10,10 +10,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.thk.movieranking.adapters.ViewPagerAdapter
 import com.thk.movieranking.databinding.FragmentMovieSlideBinding
+import com.thk.movieranking.models.MovieListResponse
 import com.thk.movieranking.network.MovieApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MovieSlideFragment : BaseFragment<FragmentMovieSlideBinding>() {
 
@@ -48,5 +52,24 @@ class MovieSlideFragment : BaseFragment<FragmentMovieSlideBinding>() {
             viewPagerAdapter.items = response.results.slice(0..9)
             viewPagerAdapter.notifyDataSetChanged()
         }
+    }
+
+    /**
+     * 기존의 API call
+     */
+    private fun normalRetrofitCall() {
+        val call: Call<MovieListResponse> = MovieApiService.api.getPopularMovies()
+
+        call.enqueue(object : Callback<MovieListResponse> {
+            override fun onResponse(call: Call<MovieListResponse>, response: Response<MovieListResponse>) {
+                if (response.isSuccessful) {
+                    val movieList = response.body()?.results
+                }
+            }
+
+            override fun onFailure(call: Call<MovieListResponse>, t: Throwable) {
+                t.printStackTrace()
+            }
+        })
     }
 }
