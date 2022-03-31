@@ -30,12 +30,6 @@ interface MovieApiInterface {
         @Query("language") language: String = "ko-KR"
     ) : Movie
 
-    @GET("movie/{movie_id}/videos")
-    suspend fun getMovieVideoInfo(
-        @Path("movie_id") movieId: Int,
-        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY
-    ) : Video
-
     @GET("search/movie")
     suspend fun searchMovie(
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,

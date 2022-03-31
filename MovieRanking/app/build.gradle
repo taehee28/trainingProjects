@@ -70,7 +70,4 @@ dependencies {
     implementation 'com.tbuonomo:dotsindicator:4.2'
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-
-    // youtube player
-    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.0.1'
 }

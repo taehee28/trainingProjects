@@ -18,8 +18,6 @@ data class Movie(
     val runtime: Int,
     val genres: List<Genre>,
     val overview: String?,
-    @SerializedName("video")
-    val hasVideo: Boolean,
 
     val rating: Int
 )
@@ -27,11 +25,6 @@ data class Movie(
 data class Genre(
     val id: Int,
     val name: String
-)
-
-data class Video(
-    val site: String,
-    val key: String
 )
 
 data class SessionInfo(

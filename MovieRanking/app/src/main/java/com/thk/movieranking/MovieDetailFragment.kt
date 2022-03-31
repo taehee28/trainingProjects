@@ -11,8 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
 import com.thk.movieranking.databinding.DialogRatingBinding
 import com.thk.movieranking.databinding.FragmentMovieDetailBinding
 import com.thk.movieranking.models.RatingValue
@@ -48,19 +46,11 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
     }
 
     private fun getMovieDetailFromServer(movieId: Int) {
-        // TODO: 메소드 쪼개고 정리하기
-
         if (movieId == -1) return
 
         lifecycleScope.launch(Dispatchers.IO) {
             val movieDetail = MovieApiService.api.getMovieDetail(movieId)
             logd(movieDetail.toString())
-
-            val videoId = if (movieDetail.hasVideo) {
-                MovieApiService.api.getMovieVideoInfo(movieId).key
-            } else {
-                null
-            }
 
             withContext(Dispatchers.Main) {
                 GlideApp.with(binding.ivPoster)
@@ -73,16 +63,6 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
                     tvReleaseDate.text = movieDetail.releaseDate + " 개봉"
                     tvRuntime.text = String.format("%d분", movieDetail.runtime)
                     tvOverview.text = movieDetail.overview ?: ""
-
-                    videoId?.let {
-                        youtubePlayer.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
-                            override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
-                                youTubePlayer.loadVideo(it, 0f)
-                            }
-                        })
-                    } ?: kotlin.run {
-                        youtubePlayer.visibility = View.GONE
-                    }
                 }
             }
         }
