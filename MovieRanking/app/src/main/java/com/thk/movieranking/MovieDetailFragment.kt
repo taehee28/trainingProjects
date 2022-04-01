@@ -112,11 +112,15 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
     /**
      * 매긴 평점 서버로 전송하기
      */
-    private fun sendRatingToServer(ratingValue: Int) = CoroutineScope(Dispatchers.IO).launch {
-        val sessionId = requireActivity().getSessionPreference().getSessionId() ?: return@launch
+    private fun sendRatingToServer(ratingValue: Int) = networkCoroutine {
+        val sessionId = requireActivity().getSessionPreference().getSessionId() ?: return@networkCoroutine
 
         // 영화에 평점 매기기 위한 POST 요청
-        val result = MovieApiService.api.ratingMovie(guestSessionId = sessionId, movieId = movieId, value = RatingValue(ratingValue.toDouble()))
+        val result = MovieApiService.api.ratingMovie(
+            guestSessionId = sessionId,
+            movieId = movieId,
+            value = RatingValue(ratingValue.toDouble())
+        )
         logd(result.toString())
     }
 }

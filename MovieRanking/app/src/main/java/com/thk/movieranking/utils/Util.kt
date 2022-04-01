@@ -28,7 +28,7 @@ val httpExceptionHandler = CoroutineExceptionHandler { _, throwable ->
 }
 
 /**
- * 예외처리 + IO 스레드 코루틴을 간편하게 사용하기 위한 확장함수
+ * 예외처리 + IO 스레드 코루틴을 간편하게 사용하기 위한 함수
  */
 inline fun networkCoroutine(crossinline block: suspend () -> Unit) = CoroutineScope(Dispatchers.IO)
     .launch(httpExceptionHandler) {
