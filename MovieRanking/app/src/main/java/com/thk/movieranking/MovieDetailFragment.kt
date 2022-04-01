@@ -46,6 +46,18 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
         binding.btnDoRate.setOnClickListener { showRatingDialog() }
     }
 
+    /**
+     * 상단 툴바 네비게이션이랑 연결하기
+     */
+    private fun setupToolbar() {
+        val navController = findNavController()
+        val appBarConfig = AppBarConfiguration(navController.graph)
+        binding.toolbar.setupWithNavController(navController, appBarConfig)
+    }
+
+    /**
+     * 서버에서 영화 상세 정보 가져오기
+     */
     private fun getMovieDetailFromServer(movieId: Int) {
         if (movieId == -1) {
             Toast.makeText(requireContext(), "movie id = -1", Toast.LENGTH_SHORT).show()
@@ -60,6 +72,9 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
         }
     }
 
+    /**
+     * 메인 스레드에서 UI 업데이트
+     */
     private suspend fun updateUi(movieDetail: Movie) = withContext(Dispatchers.Main) {
         GlideApp.with(binding.ivPoster)
             .load(TMDB_IMAGE_URL + movieDetail.posterPath)
@@ -74,12 +89,9 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
         }
     }
 
-    private fun setupToolbar() {
-        val navController = findNavController()
-        val appBarConfig = AppBarConfiguration(navController.graph)
-        binding.toolbar.setupWithNavController(navController, appBarConfig)
-    }
-
+    /**
+     * 평점 매기는 다이얼로그 띄우기
+     */
     private fun showRatingDialog() {
         val dialogBinding = DialogRatingBinding.inflate(LayoutInflater.from(requireContext()), binding.root, false).apply {
             numberPicker.apply {
@@ -97,6 +109,9 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
             .show()
     }
 
+    /**
+     * 매긴 평점 서버로 전송하기
+     */
     private fun sendRatingToServer(ratingValue: Int) = CoroutineScope(Dispatchers.IO).launch {
         val sessionId = requireActivity().getSessionPreference().getSessionId() ?: return@launch
 

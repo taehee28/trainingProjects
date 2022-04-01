@@ -47,6 +47,9 @@ class MovieSlideFragment : BaseFragment<FragmentMovieSlideBinding>() {
         getNowPlayingMovies()
     }
 
+    /**
+     * 현재 상영 중 영화 목록 가져오기
+     */
     private fun getNowPlayingMovies() = networkCoroutine {
         val response = MovieApiService.api.getNowPlayingMovies()
 

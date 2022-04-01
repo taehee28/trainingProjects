@@ -50,6 +50,9 @@ class MovieRatedFragment : BaseFragment<FragmentMovieRatedBinding>() {
         getRatedList()
     }
 
+    /**
+     * 평점 삭제 다이얼로그 띄우기
+     */
     private fun showDeleteDialog(movieId: Int) {
         AlertDialog.Builder(requireContext())
             .setItems(arrayOf("평가 삭제하기")) { dialogInterface, posistion ->
@@ -58,6 +61,9 @@ class MovieRatedFragment : BaseFragment<FragmentMovieRatedBinding>() {
             .show()
     }
 
+    /**
+     * 서버로 평점 삭제 요청하기
+     */
     private fun deleteRating(movieId: Int) = networkCoroutine {
         requireActivity().getSessionPreference().getSessionId()?.let {
             // 영화에 매긴 평점 지우기 위한 DELETE 요청
@@ -71,9 +77,12 @@ class MovieRatedFragment : BaseFragment<FragmentMovieRatedBinding>() {
         }
     }
 
+    /**
+     * 평점 매긴 영화 목록 가져오기
+     */
     private fun getRatedList() = networkCoroutine {
+        // 기기에 세션 아이디 저장되어있으면 있으면 실행
         requireActivity().getSessionPreference().getSessionId()?.let {
-            // 평점 매긴 영화 목록 가져오기
             val result = MovieApiService.api.getRatedMovies(it)
             logd(">>> $result")
 

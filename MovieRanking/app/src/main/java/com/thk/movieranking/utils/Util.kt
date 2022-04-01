@@ -20,10 +20,16 @@ fun SharedPreferences.putSessionId(sessionId: String) = edit()?.run {
     apply()
 }
 
+/**
+ * 코루틴에서 발생하는 exception을 받기 위한 핸들러
+ */
 val httpExceptionHandler = CoroutineExceptionHandler { _, throwable ->
     throwable.printStackTrace()
 }
 
+/**
+ * 예외처리 + IO 스레드 코루틴을 간편하게 사용하기 위한 확장함수
+ */
 inline fun networkCoroutine(crossinline block: suspend () -> Unit) = CoroutineScope(Dispatchers.IO)
     .launch(httpExceptionHandler) {
         block()

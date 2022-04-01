@@ -47,8 +47,10 @@ class MovieSearchFragment : BaseFragment<FragmentMovieSearchBinding>() {
         }
     }
 
+    /**
+     * 입력된 키워드에 맞는 영화 목록 서버에서 가져오기
+     */
     private fun search(text: String) = networkCoroutine {
-        // 키워드를 넘겨서 키워드에 맞는 영화 목록 가져오기
         val result = MovieApiService.api.searchMovie(queryText = text)
         logd(result.results.toString())
 
