@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/movieSlideFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_theaters_24"
+        android:title="영화 목록"/>
+
+    <item
+        android:id="@+id/movieSearchFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="검색"/>
+
+    <item
+        android:id="@+id/movieRatedFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_star_rate_24"
+        android:title="나의 평가"/>
+</menu>
